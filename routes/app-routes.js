@@ -21,6 +21,6 @@ module.exports = appRoutes = [
     ['api/application-card-controller/get-app-dependencies', 'application-card-controller#getAppDependancies', 'get'],
     ['api/application-card-controller/update-app-card', 'application-card-controller#updateApplicationCard', 'post'],
     ['api/application-card-controller/delete-card', 'application-card-controller#deleteAppCards', 'delete'],
-    ['api/pdf-reader-controller/read-pdf', 'pdf-reader-controller#readDocx', 'get']
+    ['api/pdf-reader-controller/read-pdf', 'pdf-reader-controller#extractPdf', 'get']
 ];
 
