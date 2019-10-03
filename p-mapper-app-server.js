@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 expressPath(app, appRoutes);
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
-    console.log(`server is running and up on port ${port}`);
-})
+    console.log(`p-mapper server is running and up on port ${port}`);
+});
