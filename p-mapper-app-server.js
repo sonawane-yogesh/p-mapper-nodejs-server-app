@@ -15,6 +15,6 @@ app.use(cors());
 expressPath(app, appRoutes);
 const port = process.env.PORT || 3000;
 
-app.listen(port, function () {
+app.listen(port, "127.0.0.1", function () {
     console.log(`p-mapper server is running and up on port ${port}`);
 });
