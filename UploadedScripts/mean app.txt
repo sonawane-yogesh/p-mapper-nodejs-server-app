@@ -1,0 +1,11 @@
+1.communication between angular and node js using express
+https://levelup.gitconnected.com/simple-application-with-angular-6-node-js-express-2873304fff0f
+https://malcoded.com/posts/angular-backend-express/
+
+2.app using angular+nodejs+mongodb
+https://www.javacodegeeks.com/2014/03/single-page-application-with-angular-js-node-js-and-mongodb-mongojs-module.html
+
+3..to create nodejs http server
+https://ilovecoding.org/courses/nodejs/lessons/create-a-simple-http-server-with-nodejs
+https://www.sitepoint.com/build-a-simple-web-server-with-node-js/
+https://www.tutorialsteacher.com/nodejs/create-nodejs-web-server

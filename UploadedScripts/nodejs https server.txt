@@ -1,0 +1,30 @@
+OpenSSL commands to generate SSL certificate
+
+1.openssl genrsa -out privatekey.pem 1024 => generate private key
+
+2.openssl req -new -key privatekey.pem -out certrequest.csr -config C:\OpenSSL-Win64\bin\openssl.cfg => generate certificate
+
+3.openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem => generate self-signed certificate
+
+these 2 files privatekey.pem and certificate.pem are generated in bin folder 
+to  use these 2 files keep it i keys folder of your application.
+
+
+all links related to https server in nodejs and ssl certificate
+
+1.http://voidcanvas.com/create-ssl-https-server-in-nodejs/
+2.http://programmerblog.net/nodejs-https-server/
+3.https://www.kevinleary.net/self-signed-trusted-certificates-node-js-express-js/
+4.https://contextneutral.com/story/creating-an-https-server-with-nodejs-and-express
+5.https://medium.com/nodejs-tips/ssl-certificate-explained-fc86f8aa43d4
+6.https://riptutorial.com/node-js/example/12004/ssl-tls-in-node-js
+7.https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
+8.https://www.youtube.com/watch?v=zR6HggKUe2E => video of tls server
+all links related to mongodb security
+
+1.https://docs.mongodb.com/manual/reference/connection-string/
+2.https://stackoverflow.com/questions/28106940/mongodb-and-nodejs-ssl-secure-connection
+3.https://mongodb.github.io/node-mongodb-native/2.2/tutorials/connect/ssl/
+4.
+angular project google -sign-in example
+https://www.javacodegeeks.com/2019/06/angular-google-sign-in-example.html?utm_source=sendpulse&utm_medium=push&utm_campaign=1421711
