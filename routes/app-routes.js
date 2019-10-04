@@ -17,11 +17,11 @@ module.exports = appRoutes = [
     ['api/application-card-controller/add-app-card', 'application-card-controller#addApplicationCard', 'post'],
     ['api/application-card-controller/get-app-dependencies', 'application-card-controller#getAppDependancies', 'get'],
     ['api/application-card-controller/update-app-card', 'application-card-controller#updateApplicationCard', 'post'],
-    ['api/application-card-controller/delete-card', 'application-card-controller#deleteAppCards', 'delete'],
-    ['api/pdf-reader-controller/read-pdf', 'pdf-reader-controller#extractPdf', 'get']
+    ['api/application-card-controller/delete-card', 'application-card-controller#deleteAppCards', 'delete']
 ];
 
 /*
+['api/pdf-reader-controller/read-pdf', 'pdf-reader-controller#extractPdf', 'get']
  ['api/job-card-controller/update-app-card', 'job-card-controller#updateApplicationCard', 'post'],
  ['api/job-card-controller/add-app-card', 'job-card-controller#addApplicationCard', 'post'],
  ['api/job-card-controller/get-app-dependencies', 'job-card-controller#getAppDependancies', 'get'],

@@ -6,6 +6,7 @@ var cors = require('cors');
 var appRoutes = require('./routes/app-routes');
 const path = require("path");
 const fs = require("fs");
+var request = require('request');
 
 app.use(bodyParser.json({
     limit: '60mb'
@@ -18,28 +19,22 @@ app.use(cors());
 
 expressPath(app, appRoutes);
 const port = process.env.PORT || 3001;
-
-var multiparty = require("multiparty");
-app.post("/submit", function (httpRequest, httpResponse, next) {
-    var dirPath = path.join(__dirname, "./UploadedFiles");
-    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath);
-
-    var form = new multiparty.Form({
-        uploadDir: "./UploadedFiles"
-    });
-    form.on("part", function (part) {
-        console.log(part.filename);
-        httpResponse.send("Ok");
-    });
-    form.on("file", function (part) {
-        console.log(arguments);
-    });
-    form.on("error", function (error) {
-        console.log(error);
-    })
-    form.parse(httpRequest);
-});
-
+// var formData = {
+//     uploadFile: fs.createReadStream(path.join(__dirname, "./UploadedScripts", "sample.pdf"))
+// };
+var {
+    fileProcessing
+} = require('./controllers/file-process-controller');
+setInterval(function () {
+    fileProcessing();
+}, 10000);
+// request.post({
+//     url: "http://localhost:3004/api/text-extractor/upload-to-process",
+//     formData: formData
+// }, function optionalCallback(err, httpResponse, body) {
+//     if (err) return console.error('upload failed:', err);
+//     console.log(JSON.parse(body));
+// });
 app.listen(port, "127.0.0.1", function () {
     console.log(`p-mapper server is running and up on port ${port}`);
 });
