@@ -1,10 +1,9 @@
 var {
     JobCardMaster,
-    ApplicationCardMaster,
-    JobDependencies,
-    AppDependencies
+    JobDependencies
 } = require('../model');
 var mongoose = require('mongoose');
+
 var addJobCard = function (request, response) {
     var reqBody = request.body;
     var dependencies = reqBody.Predecessor;
@@ -35,63 +34,6 @@ var addJobCard = function (request, response) {
     });
 };
 
-var addApplicationCard = function (request, response) {
-    var reqBody = request.body;
-    var dependencies = reqBody.Dependancy;
-    var applicationCardData = new ApplicationCardMaster({
-        AppTitle: reqBody.AppTitle,
-        BusinessPurpose: reqBody.BusinessPurpose,
-        Version: reqBody.Version,
-        ServerName: reqBody.ServerName,
-        ServerIP: reqBody.ServerIP,
-        Hardware: reqBody.Hardware,
-        OperatingSystem: reqBody.OperatingSystem,
-        OsVersion: reqBody.OsVersion,
-        // Dependancy: reqBody.Dependancy,
-        CardType: reqBody.CardType
-    });
-    // console.log(applicationCardData);
-    applicationCardData.save().then((result) => {
-        dependencies.forEach(function (d) {
-            d.AppId = result._id;
-            console.log(d);
-        });
-        AppDependencies.insertMany(dependencies, function (err, docs) {
-            response.json(docs);
-        });
-        // console.log(res);
-        //  response.send("Application-Card saved successfully");
-    }).catch((err) => {
-        //console.log(err);
-        response.status(500).send("Error occured!");
-    });
-};
-var updateApplicationCard = async function (request, response) {
-    var reqBody = request.body;
-    var id = reqBody.id;
-    ApplicationCardMaster.findByIdAndUpdate({
-        _id: id
-    }, reqBody, {
-        upsert: true,
-        returnNewDocument: true
-    }, function (err, doc) {
-        if (err) {
-            response.status(500).send('Error While Updating Card');
-        } else {
-            reqBody.Dependancy.forEach(function (d) {
-                d.AppId = doc._id;
-                // console.log(d);
-            });
-            AppDependencies.remove({
-                AppId: doc._id
-            }, function (e, r) {
-                AppDependencies.insertMany(reqBody.Dependancy, function (error, docs) {
-                    response.send('Application Card Updated Successfully');
-                });
-            });
-        }
-    });
-};
 var updateJobCard = function (request, response) {
     var reqBody = request.body;
     var id = reqBody.id;
@@ -118,6 +60,7 @@ var updateJobCard = function (request, response) {
         }
     });
 };
+
 var getPredecessor = async function (request, response) {
     var aggregate = [{
         $lookup: {
@@ -132,22 +75,6 @@ var getPredecessor = async function (request, response) {
     });
 };
 
-var getAppDependancies = async function (request, response) {
-    var aggregate = [{
-        $lookup: {
-            from: 'AppDependencies', // From Which table
-            localField: '_id', // Current table _id -- ApplicationCardMaster
-            foreignField: 'AppId', // From JobDependencies -- AppId
-            as: 'Dependencies' // Property Name
-        }
-    }];
-    ApplicationCardMaster.aggregate(aggregate).exec(function (err, result) {
-        response.send(result)
-    });
-    // var list = await ApplicationCardMaster.find();
-    // response.send(list);
-};
-
 var getAllJobCards = async function (request, response) {
     var jobAggregate = [{
         $lookup: {
@@ -159,19 +86,7 @@ var getAllJobCards = async function (request, response) {
     }];
     // var jobCards = await JobCardMaster.find({});
     var jobCards = await JobCardMaster.aggregate(jobAggregate).exec();
-
-    var appAggregate = [{
-        $lookup: {
-            from: 'AppDependencies',
-            localField: '_id',
-            foreignField: 'AppId',
-            as: 'Dependencies'
-        }
-    }];
-    // var appCards = await ApplicationCardMaster.find();
-    var appCards = await ApplicationCardMaster.aggregate(appAggregate).exec();
-    var allCards = jobCards.concat(appCards);
-    response.send(allCards);
+    response.send(jobCards);
 };
 
 var getJobCards = async function (request, response) {
@@ -186,17 +101,13 @@ var deleteCards = function (request, response) {
         await JobCardMaster.findByIdAndDelete({
             _id: index
         });
-        await ApplicationCardMaster.findByIdAndDelete({
-            _id: index
-        });
+
         await JobDependencies.remove({
             JobId: mongoose.Types.ObjectId(index)
         });
-        await AppDependencies.remove({
-            AppId: mongoose.Types.ObjectId(index)
-        });
+
         response.send('Card Deleted Successfully');
-    });    
+    });
 };
 var updateAssociatedFiles = async function (request, response) {
     var reqBody = request.body;
@@ -226,11 +137,8 @@ var updateAssociatedFiles = async function (request, response) {
 };
 module.exports = {
     addJobCard,
-    addApplicationCard,
     getPredecessor,
     getAllJobCards,
-    getAppDependancies,
-    updateApplicationCard,
     updateJobCard,
     deleteCards,
     getJobCards,
