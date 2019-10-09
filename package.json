@@ -30,6 +30,7 @@
     "doxtract": "^1.0.13",
     "multiparty": "^4.2.1",
     "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "textract": "^2.5.0"
   }
 }
