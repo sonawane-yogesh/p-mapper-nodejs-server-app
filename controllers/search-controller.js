@@ -1,14 +1,17 @@
 var {
     JobCardMaster,
     ApplicationCardMaster,
-    JobDependencies,
-    AppDependencies
+    FileTextContent
 } = require('../model');
 
 var searchCardDetails = async function (request, response) {
     var reqBody = request.query.keyword;
     var keywordList = reqBody.split(',');
-    var list = [];
+    var list ={
+        jobList:[],
+        appList:[],
+        textContentList:[]
+    };
     for (keyword of keywordList) {
         var jobAggregate = [{
             $lookup: {
@@ -39,7 +42,7 @@ var searchCardDetails = async function (request, response) {
         var regEx = new RegExp(keyword, "i");
         var jobDocs = await JobCardMaster.aggregate(jobAggregate).exec();
         for (job of jobDocs) {
-            list.push(job);
+            list.jobList.push(job);
         };
         var appAggregate = [{
             $lookup: {
@@ -61,10 +64,43 @@ var searchCardDetails = async function (request, response) {
                 }]
             }
         }];
-        var appDocs = await ApplicationCardMaster.aggregate(appAggregate).exec(); 
+        var appDocs = await ApplicationCardMaster.aggregate(appAggregate).exec();
         for (app of appDocs) {
-            list.push(app);
+            list.appList.push(app);
         };
+
+        // Starting search in TextConents...
+        var fileTextContentAggregate = [{
+            $unwind: {
+                path: "$AssociatedFile",
+                preserveNullAndEmptyArrays: true
+            }
+        }, {
+            $lookup: {
+                from: 'JobCardMaster',
+                localField: 'JobId',
+                foreignField: '_id',
+                as: 'JobCardMaster'
+            }
+        }, {
+            $match: {
+                "ExtractedText": {
+                    $regex: regEx
+                }
+            }
+        }, {
+            $unwind: {
+                path: "$JobCardMaster",
+                preserveNullAndEmptyArrays: true
+            }
+        }];
+    };
+    var textContents = await FileTextContent.aggregate(fileTextContentAggregate).exec();
+    for (textContent of textContents) {
+        var assFile = textContent.JobCardMaster.AssociatedFiles
+            .filter(a => a._id.toString() === textContent.AssociatedFileId.toString());
+        textContent.JobCardMaster.AssociatedFiles = assFile;
+        list.textContentList.push(textContent.JobCardMaster);
     };
     response.send(list);
 };

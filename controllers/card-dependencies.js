@@ -10,12 +10,12 @@ var getAllDepedencies = async function (request, response) {
     console.log(cardType);
     var diagramData = {
         Nodes: [],
-        Links: []
+        Links: []     
     };
     if (cardType === 'job') {
-        var finalArr = await getJobList(id, diagramData);
+        await getJobList(id, diagramData);
     } else {
-        var finalArr = await getAppList(id, diagramData);
+        await getAppList(id, diagramData);
     }
     //console.log(finalArr);
     response.json(diagramData);
@@ -48,6 +48,7 @@ var getJobList = async function (id, diagramData) {
             var nodeLink = prepareLink((nodeCount - 1), nodeCount, d.DependencyTitle, "red");
             diagramData.Links.push(nodeLink);
             var result = await getJobChildList(d.DependencyId);
+            if (result.length <= 0) continue;
             var arr = chkDependency(result[0].Dependencies, diagramData, nodeCount, nodeCount);
             diagramData.Nodes.concat(arr);
         }

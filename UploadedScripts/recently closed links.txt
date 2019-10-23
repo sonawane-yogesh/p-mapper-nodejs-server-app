@@ -1,0 +1,69 @@
+https://medium.com/fuzzycloud/angular-and-observable-4bf890b2a282
+
+https://medium.com/swlh/observables-angular-7e11ad612072
+
+https://www.google.com/search?client=firefox-b-d&q=why+we+need+onservales
+
+https://academind.com/learn/javascript/rxjs-6-what-changed/ =>official site of academind
+
+https://www.learnrxjs.io/operators/filtering/filter.html
+
+https://www.google.com/search?client=firefox-b-d&q=what+is+subject+in+angular=>what is subject in angular
+ sublinks  of subject : : 
+    http://reactivex.io/rxjs/manual/overview.html#subject
+    https://medium.com/instarem-engineering/subjects-in-angular-2-4-5-4e5986e38e47
+
+
+
+============p-mapper=============
+https://timepicker.co/# =>for time picker
+
+
+
+
+
+
+
+
+******mean application link*******
+
+1) https://medium.com/@parthkamaria/storing-and-retrieving-files-from-mongodb-using-mean-stack-and-gridfs-aebd8b91cf38
+
+2)https://blog.getdeployer.com/starting-up-a-node-js-app-with-mongodb-and-angularjs-57b9571f2ce9
+
+********angular pipes *********
+1)https://medium.com/@kelvinyan/learning-angular-pipes-part-ii-89418573eb74
+
+2)https://medium.com/@kelvinyan/learning-angular-pipes-part-i-66b483603792
+
+***********angular routes*********
+1.https://medium.com/coding-blocks/angular-6-routing-made-easy-part-1-f347c8a85947 =>part-1
+2.https://medium.com/coding-blocks/angular-routing-made-easy-part-2-94a6764db89e =>part-2
+3.https://medium.com/@iamvishalkhare/angular-routing-navigation-bab9880ec4be =>routing & navigation
+4.https://medium.com/@jinalshah999/all-about-routing-in-angular-application-23f469a33f89 => all about angular routing
+
+
+========================== 30th 2019 :===========================
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

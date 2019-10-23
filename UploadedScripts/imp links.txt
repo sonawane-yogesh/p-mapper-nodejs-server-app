@@ -1,0 +1,129 @@
+microsoft's new programming language bosque 
+
+for momentjs (date related 3rd party library)
+http://momentjs.com/
+
+related to "this" keyword in javascript : :
+
+1. https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/
+2. https://toddmotto.com/understanding-the-this-keyword-in-javascript/
+3. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
+
+related to mongodb and node js  server : :
+1.https://devdocs.io/node/console
+2.https://nodejs.org/api/events.html
+3.https://docs.mongodb.com/manual/core/sharded-cluster-query-router/
+
+related to bootstrap
+1)https://mdbootstrap.com
+2)https://getbootstrap.com/docs/4.3
+3)  for all built-in bootstrap classes =>
+https://www.w3schools.com/bootstrap4/bootstrap_ref_all_classes.asp
+4)bootstrap-multiselect.js is jquery based plugin that allows users to tick multiple options from a standard bootstrap select.its implemetation is quite simple and in exchange brings a lot of UX value.ex of Bootstrap
+Multiselect use:ingredient chioce within a pizza delivery system. 
+
+following is the link use for dowloading bootstrap-multiselect.js files's diff versions like common js pattern 
+file or normal js file  : : (Note :: use any of the link provided by cdn from below link)
+https://cdnjs.com/libraries/bootstrap-multiselect
+
+
+related to css
+1)https://www.htmldog.com
+2)https://www.w3schools.com/cssref/
+3)https://www.w3schools.com/jsref/dom_obj_style.asp
+4)
+
+links related to call apply bind (ABC)
+
+1.https://www.codingame.com/playgrounds/9799/learn-solve-call-apply-and-bind-methods-in-javascript
+
+2.https://www.codementor.io/niladrisekhardutta/how-to-call-apply-and-bind-in-javascript-8i1jca6jp
+
+3.https://medium.com/@omergoldberg/javascript-call-apply-and-bind-e5c27301f7bb
+
+4.https://javascriptissexy.com/javascript-apply-call-and-bind-methods-are-essential-for-javascript-professionals/  => [refer this link for  when to use these 3 methods]
+
+****************links updated*******************
+
+https://www.sitepoint.com/understanding-es6-modules/
+
+https://addyosmani.com/writing-modular-js/
+
+https://medium.freecodecamp.org/anatomy-of-js-module-systems-and-building-libraries-fadcd8dbd0e
+
+*********link for function in javascript*********
+http://adripofjavascript.com/blog/drips/an-introduction-to-iffes-immediately-invoked-function-expressions.html
+
+**************links for common js and AMD******************
+http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition => for syntax and argument list of define() function
+
+how to write javasript modules (browser,node.js)=>
+https://dzone.com/articles/how-write-and-unit-test
+
+https://dzone.com/articles/how-write-and-unit-test
+
+************requireJS************
+https://www.sitepoint.com/understanding-requirejs-for-effective-javascript-module-loading/
+https://medium.com/@tkssharma/javascript-module-pattern-b4b5012ada9f => module system
+https://www.oreilly.com/library/view/learning-javascript-design/9781449334840/ch11s03.html => for common js and amd 
+
+******************about javascript require() function works************** => 
+https://michelenasti.com/2018/10/02/let-s-write-a-simple-version-of-the-require-function.html
+
+http://fredkschott.com/post/2014/06/require-and-the-module-system/ => how actually require() works.
+
+https://blog.tableflip.io/the-difference-between-module-exports-and-exports/ => about global variables in node.Js
+related to above in node Js docs.
+https://nodejs.org/dist/latest-v10.x/docs/api/modules.html#modules_require
+
+*****chart.js***********
+chart.js is a javascript library that allows us to draw different types of by using the html5 canvas element.since it uses canvas ,you have to include a polufill to support older browsers.
+https://www.chartjs.org/
+
+*******constructor function**********
+https://www.vojtechruzicka.com/javascript-constructor-functions-and-new-operator/ => how it works?
+
+************what javascript can't do***********
+https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/JavaScript_Introduction.html=>
+the link also provides a imp  and basic information about javascript.
+eg. can't read file from client machine.
+
+***********how javascript works and about "this" keyword=>*********
+https://medium.com/quick-code/understanding-the-this-keyword-in-javascript-cb76d4c7c5e8 
+
+****for LINQ in c#******
+https://csharp.net-tutorials.com/linq/introduction/
+https://www.c-sharpcorner.com/uploadfile/ashish_2008/how-to-use-linq-in-net/
+https://docs.microsoft.com/en-us/dotnet/csharp/linq/
+
+*******for generics and other concepts of c#*********
+https://www.pluralsight.com/courses/using-csharp-interfaces
+https://app.pluralsight.com/player?name=aa8236a4-85e3-4cc6-8af2-fe3c723d5964&mode=live&clip=0&course=using-csharp-interfaces&author=jeremy-clark
+
+use of javascript instead of jquery for dom manipulation
+https://blog.garstasio.com/you-dont-need-jquery => blog of instructor of the "complete javascript course 2019" from udemy. 
+
+
+**********for angular************
+https://angular.io
+https://ng-bootstrap.github.io/#/components/modal/examples 
+
+**********background and diff in angular**********
+https://gorrion.io/blog/angularjs-vs-angular
+https://angularjs.org/
+https://www.dev6.com/angular-2-the-three-types-of-directives=> 3 types of directives 
+https://ultimatecourses.com/blog/angular-decorators#Angular_Decorators=>about angular decorators
+https://www.youtube.com/watch?v=PFP0oXNNveg=> an application using all mean technology 
+
+
+**********angular life hooks***********
+https://medium.com/@KanikaSaluja43/angular-component-lifecycle-hooks-773cd9404af
+https://dzone.com/articles/angular-6-part-3-life-cycle-of-a-component
+
+**********for @HostListener and @HostBinding in angular*************
+https://dzone.com/articles/what-are-hostbinding-and-hostlistener-in-angular
+
+
+
+https://stackoverflow.com/questions/7580508/getting-chrome-to-accept-self-signed-localhost-certificate/43666288#43666288=>for ssl configuration and https server
+

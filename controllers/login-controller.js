@@ -24,6 +24,23 @@ var addUserDetails = function (request, response) {
     });
 };
 
+var updateUserDetails = function (request, response) {
+    var reqBody = request.body;
+    var id = reqBody.id;
+    UserMaster.findByIdAndUpdate({
+        _id: id
+    }, reqBody, {
+        upsert: true,
+        returnNewDocument: true
+    }, function (err, docs) {
+        if (err) {
+            response.status(500).send('Error While Updating User');
+        } else {
+            response.send(docs);
+        }
+    });
+    console.log(request.body.id);
+};
 var getUserDetails = async function (request, response) {
     var users = await UserMaster.find();
     response.send(users);
@@ -31,5 +48,6 @@ var getUserDetails = async function (request, response) {
 module.exports = {
     checkUserDetails,
     addUserDetails,
-    getUserDetails
+    getUserDetails,
+    updateUserDetails
 };

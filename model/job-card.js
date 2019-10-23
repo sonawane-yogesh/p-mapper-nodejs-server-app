@@ -4,18 +4,39 @@ var {
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
+var associatedDocSchema = new Schema({
+    FilePath: {
+        type: String,
+        required: true
+    },
+    FileType: {
+        type: String,
+        required: true
+    },
+    FileNameWithoutExt: {
+        type: String,
+        required: true
+    },
+    FileNameWithExtension: {
+        type: String,
+        required: true
+    },
+    IsTextExtracted: {
+        type: Boolean,
+        default: false
+    }
+});
+
 var jobCardSchema = new Schema({
     JobTitle: {
         type: String,
         required: true
     },
-    AssociatedFiles: {
-        type: Array,
-        required: true
-    },
+    AssociatedFiles: [associatedDocSchema],
     Tags: {
-        type: Array,
-        required: String
+        type: [String],
+        required: true
     },
     BusinessPurpose: {
         type: String,
@@ -35,18 +56,31 @@ var jobCardSchema = new Schema({
     },
     EstimatedTime: {
         type: String,
-        required: String
+        required: true
     },
     MissionStatus: {
         type: Boolean,
         required: true
-    },  
+    },
     CardType: {
         type: String,
         required: true
     }
 });
+/*
+jobCardSchema.pre("aggregate", function (next) {
+    this.lookup({
+        from: 'JobDependencies',
+        localField: '_id',
+        foreignField: 'JobId',
+        as: 'Dependencies'
+    });
+    next();
+});
+*/
+var AssociatedFiles = server.model('AssociatedFiles', associatedDocSchema, 'AssociatedFiles');
 var JobCardMaster = server.model('JobCardMaster', jobCardSchema, 'JobCardMaster');
 module.exports = {
-    JobCardMaster
+    JobCardMaster,
+    AssociatedFiles
 }

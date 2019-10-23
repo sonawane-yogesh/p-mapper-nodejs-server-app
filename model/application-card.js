@@ -8,6 +8,38 @@ var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
+var emergencyContactSchema = new Schema({
+    Name: {
+        type: String,
+        required: true
+    },
+    Email: {
+        type: String,
+        required: true
+    },
+    PhoneWork: {
+        type: String,
+        required: true
+    },
+    PhoneCell: {
+        type: String,
+        required: true
+    },
+    PhoneHome: {
+        type: String,
+        required: true
+    },
+    AlternatePhone: {
+        type: String,
+        required: true
+    },
+    ContactType: {
+        type: String,
+        required: true
+    }
+});
+
 var appCardSchema = new Schema({
     AppTitle: {
         type: String,
@@ -47,9 +79,18 @@ var appCardSchema = new Schema({
     CardType: {
         type: String,
         required: true
+    },
+    EmergencyContacts: [String],
+    Tags: {
+        type: [String],
+        required: true
     }
 });
+
+
+var EmergencyContacts = server.model('EmergencyContacts', emergencyContactSchema, 'EmergencyContacts');
 var ApplicationCardMaster = server.model('ApplicationCardMaster', appCardSchema, 'ApplicationCardMaster');
 module.exports = {
-    ApplicationCardMaster
+    ApplicationCardMaster,
+    EmergencyContacts
 }

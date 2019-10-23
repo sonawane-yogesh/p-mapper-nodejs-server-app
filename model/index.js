@@ -14,11 +14,18 @@ var {
 var {
     UserMaster
 } = require('../model/user-master');
-
+var {
+    FileTextContent
+} = require("../model/ass-file-text-content");
+var {
+    SystemMember
+} = require("../model/system-members");
 module.exports = {
     JobDependencies,
     AppDependencies,
     JobCardMaster,
     ApplicationCardMaster,
-    UserMaster
+    UserMaster,
+    FileTextContent,
+    SystemMember
 }

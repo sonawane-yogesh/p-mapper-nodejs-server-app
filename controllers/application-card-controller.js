@@ -2,10 +2,11 @@ var {
     ApplicationCardMaster,
     AppDependencies
 } = require('../model');
-
+var mongoose = require('mongoose');
 var addApplicationCard = function (request, response) {
     var reqBody = request.body;
     var dependencies = reqBody.Dependancy;
+    var contacts = reqBody.EmergencyContacts;
     var applicationCardData = new ApplicationCardMaster({
         AppTitle: reqBody.AppTitle,
         BusinessPurpose: reqBody.BusinessPurpose,
@@ -16,7 +17,9 @@ var addApplicationCard = function (request, response) {
         OperatingSystem: reqBody.OperatingSystem,
         OsVersion: reqBody.OsVersion,
         // Dependancy: reqBody.Dependancy,
-        CardType: reqBody.CardType
+        CardType: reqBody.CardType,
+        EmergencyContacts: contacts,
+        Tags:reqBody.Tags
     });
     applicationCardData.save().then((result) => {
         dependencies.forEach(function (d) {
@@ -97,10 +100,28 @@ var deleteAppCards = function (request, response) {
         response.send('Card Deleted Successfully');
     });
 };
+var getAppCardById = async function (request, response) {
+    var id = request.query.id;
+    var appAggregate1 = [{
+        $lookup: {
+            from: 'AppDependencies',
+            localField: '_id',
+            foreignField: 'AppId',
+            as: 'Dependencies'
+        }
+    }, {
+        $match: {
+            "_id": mongoose.Types.ObjectId(id)
+        }
+    }];
+    var appCard = await ApplicationCardMaster.aggregate(appAggregate1).exec();
+    response.send(appCard);
+};
 module.exports = {
     addApplicationCard,
     getAllApplicationCards,
     getAppDependancies,
     updateApplicationCard,
-    deleteAppCards
+    deleteAppCards,
+    getAppCardById
 }

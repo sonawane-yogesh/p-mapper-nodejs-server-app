@@ -135,6 +135,24 @@ var updateAssociatedFiles = async function (request, response) {
             response.json(docs);
     });
 };
+
+var getJobCardById = async function (request, response) {
+    var id = request.query.id;
+    var jobAggregate1 = [{
+        $lookup: {
+            from: 'JobDependencies',
+            localField: '_id',
+            foreignField: 'JobId',
+            as: 'Dependencies'
+        }
+    }, {
+        $match: {
+            _id: mongoose.Types.ObjectId(id)
+        }
+    }];
+    var jobCard = await JobCardMaster.aggregate(jobAggregate1).exec();
+    response.send(jobCard);
+}
 module.exports = {
     addJobCard,
     getPredecessor,
@@ -142,5 +160,6 @@ module.exports = {
     updateJobCard,
     deleteCards,
     getJobCards,
-    updateAssociatedFiles
+    updateAssociatedFiles,
+    getJobCardById
 };
