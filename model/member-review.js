@@ -1,13 +1,11 @@
-var Mongoose = require("mongoose");
-var Schema = Mongoose.Schema;
-var {
-    MongoServer
-} = require('../db/db-config');
-var DbServer = MongoServer.dbServer();
+var { dbServer } = require('../db/db-config');
+var server = dbServer();
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 var {
     GeneralSkillSchema,
     GoalsMasterSchema
-} = require("./index");
+} = require("./member-review-schema");
 
 
 var memberReviewSchema = new Schema({
@@ -15,7 +13,7 @@ var memberReviewSchema = new Schema({
     GoalsMaster: GoalsMasterSchema
 })
 
-var MemberReviewMaster = DbServer.model('MemberReviewMaster', memberReviewSchema, 'MemberReviewMaster');
+var MemberReviewMaster = server.model('MemberReviewMaster', memberReviewSchema, 'MemberReviewMaster');
 module.exports = {
     MemberReviewMaster
 };

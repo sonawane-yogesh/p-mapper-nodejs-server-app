@@ -32,14 +32,15 @@ var fileuploadRoutes = [
 ];
 var systemMemberRoutes = [
     ['api/system-member-controller/add-system-member', 'system-member-controller#addMembers', 'post'],
-    ['api/system-member-controller/get-all-member', 'system-member-controller#getAllMembers', 'get'],
-    []
+    ['api/system-member-controller/get-all-member', 'system-member-controller#getAllMembers', 'get']
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],
     ['api/search-controller/search-card', 'search-controller#searchCardDetails', 'get'],
 ];
+var memberReviewRoutes = [
+    ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post'],
+]
 
-
-var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes, systemMemberRoutes, testRoutes);
+var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes, systemMemberRoutes, testRoutes, memberReviewRoutes);
 module.exports = appRoutes;

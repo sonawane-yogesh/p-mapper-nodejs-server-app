@@ -1,11 +1,9 @@
-var Mongoose = require("mongoose");
-var Schema = Mongoose.Schema;
-var {
-    MongoServer
-} = require('../db/db-config');
-var DbServer = MongoServer.dbServer();
+var { dbServer } = require('../db/db-config');
+var server = dbServer();
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var generalSkillSchema = new Schema({
+var generalSkillsSchema = new Schema({
     QualityOfWork: {
         type: String,
         required: true
@@ -35,12 +33,13 @@ var generalSkillSchema = new Schema({
         required: true
     },
     CreatedBy: {
-        type: Mongoose.Types.ObjectId,
-        required: true
+        type: String,
+        required: false
     },
     CreatedOn: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: false        
     }
 });
 
@@ -64,6 +63,6 @@ var goalsMasterSchema = new Schema({
 });
 
 module.exports.GoalsMasterSchema = goalsMasterSchema;
-module.exports.GeneralSkillSchema = generalSkillSchema;
-module.exports.GeneralSkillsMaster = DbServer.model('GeneralSkillMaster', GeneralSkillSchema, 'GeneralSkillMaster');
-module.exports.GoalsMaster = DbServer.model('GoalsMaster', GoalsMasterSchema, 'GoalsMaster');
+module.exports.GeneralSkillSchema = generalSkillsSchema;
+module.exports.GeneralSkillMaster = server.model('GeneralSkillMaster', generalSkillsSchema, 'GeneralSkillMaster');
+module.exports.GoalsMaster = server.model('GoalsMaster', goalsMasterSchema, 'GoalsMaster');

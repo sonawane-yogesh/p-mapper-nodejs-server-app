@@ -29,6 +29,9 @@ var {
 var {
     MaintananceActivity
 } = require("../model/maintanance-activity");
+
+var {MemberReviewMaster} = require("../model/member-review");
+
 module.exports = {
     JobDependencies,
     AppDependencies,
@@ -41,5 +44,6 @@ module.exports = {
     GoalsMaster,
     GoalsMasterSchema,
     GeneralSkillSchema,
-    MaintananceActivity
+    MaintananceActivity,
+    MemberReviewMaster
 }
