@@ -5,7 +5,7 @@ var server = dbServer();
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var AppDependenciesSchema = new Schema({
+var appDependenciesSchema = new Schema({
     AppId: {
         type: mongoose.Types.ObjectId
     },
@@ -16,7 +16,7 @@ var AppDependenciesSchema = new Schema({
         type: mongoose.Types.ObjectId
     }
 });
-var AppDependencies = server.model('AppDependencies', AppDependenciesSchema, 'AppDependencies');
+var AppDependencies = server.model('AppDependencies', appDependenciesSchema, 'AppDependencies');
 module.exports = {
     AppDependencies
 }

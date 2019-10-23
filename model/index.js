@@ -20,6 +20,13 @@ var {
 var {
     SystemMember
 } = require("../model/system-members");
+var {
+    GeneralSkillsMaster,
+    GoalsMaster,
+    GoalsMasterSchema,
+    GeneralSkillSchema
+} = require("../model/member-review-schema");
+
 module.exports = {
     JobDependencies,
     AppDependencies,
@@ -27,5 +34,9 @@ module.exports = {
     ApplicationCardMaster,
     UserMaster,
     FileTextContent,
-    SystemMember
+    SystemMember,
+    GeneralSkillsMaster,
+    GoalsMaster,
+    GoalsMasterSchema,
+    GeneralSkillSchema
 }
