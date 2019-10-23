@@ -4,7 +4,7 @@ var app = express();
 var expressPath = require('express-path');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var appRoutes1 = require('./routes/app-routes1');
+var appRoutes = require('./routes/app-routes');
 const https = require('https');
 const fs = require('fs');
 
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cors());
-expressPath(app, appRoutes1);
+expressPath(app, appRoutes);
 const port = process.env.PORT || 3000;
 
 var {
