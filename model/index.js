@@ -20,6 +20,9 @@ var {
 var {
     SystemMember
 } = require("../model/system-members");
+var {
+    MaintananceActivity
+} = require("../model/maintanance-activity");
 module.exports = {
     JobDependencies,
     AppDependencies,
@@ -27,5 +30,6 @@ module.exports = {
     ApplicationCardMaster,
     UserMaster,
     FileTextContent,
-    SystemMember
+    SystemMember,
+    MaintananceActivity
 }
