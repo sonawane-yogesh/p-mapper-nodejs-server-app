@@ -24,9 +24,32 @@ var addMembers = function (request, response) {
 
 
 var getAllMembers = async function (request, response) {
-    var members = await SystemMember.find();
+    var members = {
+        developers: [],
+        others: [],
+        allMembers: []
+    };
+    var devList = await SystemMember.find({
+        ContactType: "Developer"
+    });
+    for (let dev of devList) {
+        members.developers.push(dev);
+    }
+    var allmembers = await SystemMember.find();
+    for (let member of allmembers) {
+        members.allMembers.push(member);
+    }
+    var nonDevs = await SystemMember.find({
+        ContactType: {
+            $not: RegExp("Developer")
+        }
+    });
+    for (let n of nonDevs) {
+        members.others.push(n);
+    }
     response.send(members);
 };
+
 module.exports = {
     addMembers,
     getAllMembers

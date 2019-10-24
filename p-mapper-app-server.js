@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var appRoutes = require('./routes/app-routes');
 
-
 const https = require('https');
 const fs = require('fs');
 

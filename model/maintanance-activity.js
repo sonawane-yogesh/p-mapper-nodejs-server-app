@@ -4,10 +4,16 @@ var {
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var {
+    ApplicationCardMaster
+} = require("./application-card");
+var {
+    SystemMember
+} = require("./system-members");
 
 var maintananceSchema = new Schema({
-    AppId: {
-        type: mongoose.Types.ObjectId,
+    AppName: {
+        type: String,
         required: true
     },
     TicketTitle: {
@@ -23,27 +29,40 @@ var maintananceSchema = new Schema({
         required: true
     },
     ImpactedApps: [{
-        AppName: {
-            type: String,
-            required: true
-        },
-        AppId: {
-            type: mongoose.Types.ObjectId,
-            required: true
-        }
+        type: mongoose.Types.ObjectId,
+        ref: ApplicationCardMaster
     }],
     DevelopmentTeam: [{
-        Name: String,
-        MemberId: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        ref: SystemMember
     }],
-    StakeholderTeam: [{
-        Name: String,
-        MemberId: mongoose.Types.ObjectId
-    }],
+    StakeholderTeam: [],
     CurrentPhase: {
         type: String,
         required: true
     }
+});
+
+maintananceSchema.pre(["find", "findOne"], function (next) {
+    this.populate("DevelopmentTeam");
+    this.populate("ImpactedApps");
+    next();
+});
+
+maintananceSchema.pre("aggregate", function (next) {
+    this.lookup({
+        from: "SystemMember",
+        foreignField: "_id",
+        localField: "DevelopmentTeam",
+        as: "DevelopmentTeam"
+    });
+    this.lookup({
+        from: "ApplicationCardMaster",
+        foreignField: "_id",
+        localField: "ImpactedApps",
+        as: "ImpactedApps"
+    });
+    next();
 });
 
 var MaintananceActivity = server.model("MaintananceActivity", maintananceSchema, "MaintananceActivity");
