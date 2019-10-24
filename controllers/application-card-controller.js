@@ -22,7 +22,7 @@ var addApplicationCard = function (request, response) {
         SystemOwner: reqBody.SystemOwner,
         BusinessOwner: reqBody.BusinessOwner,
         SystemManager: reqBody.SystemManager,
-        BusinessManager: reqBody.BusinessManager    
+        BusinessManager: reqBody.BusinessManager
     });
     applicationCardData.save().then((result) => {
         dependencies.forEach(function (d) {
@@ -45,8 +45,9 @@ var getAllApplicationCards = async function (request, response) {
             as: 'Dependencies'
         }
     }];
-
-    var appCards = await ApplicationCardMaster.aggregate(appAggregate).exec();
+    // var appCards = await ApplicationCardMaster.aggregate(appAggregate).exec();
+     var appCards = await ApplicationCardMaster.aggregate().exec();
+    //var appCards = await ApplicationCardMaster.find();
     response.send(appCards);
 };
 var getAppDependancies = async function (request, response) {

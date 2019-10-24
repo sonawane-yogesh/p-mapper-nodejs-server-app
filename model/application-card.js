@@ -1,13 +1,12 @@
-// import {
-//     Schema
-// } from "mongoose"
 var {
     dbServer
 } = require('../db/db-config');
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var {
+    SystemMember
+} = require('../model/index');
 
 var emergencyContactSchema = new Schema({
     Name: {
@@ -73,20 +72,56 @@ var appCardSchema = new Schema({
         type: String,
         required: true
     },
-    // Dependancy: {
-    //     type: Array
-    // },
     CardType: {
         type: String,
         required: true
     },
-    EmergencyContacts: [String],
+    EmergencyContacts: [{
+        type: mongoose.Types.ObjectId,
+        ref: SystemMember
+    }],
     Tags: {
         type: [String],
+        required: true
+    },
+    SystemOwner: {
+        type: String,
+        required: true
+    },
+    SystemManager: {
+        type: String,
+        required: true
+    },
+    BusinessManager: {
+        type: String,
+        required: true
+    },
+    BusinessOwner: {
+        type: String,
         required: true
     }
 });
 
+appCardSchema.pre(["find", "findOne"], function (next) {
+    this.populate("EmergencyContacts");
+    next();
+});
+
+appCardSchema.pre("aggregate", function (next) {
+    this.lookup({
+        from: 'AppDependencies',
+        localField: '_id',
+        foreignField: 'AppId',
+        as: 'Dependencies'
+    });
+    this.lookup({
+        from: 'SystemMember',
+        localField: "EmergencyContacts",
+        foreignField: '_id',
+        as: 'EmergencyContacts'
+    });
+    next();
+});
 
 var EmergencyContacts = server.model('EmergencyContacts', emergencyContactSchema, 'EmergencyContacts');
 var ApplicationCardMaster = server.model('ApplicationCardMaster', appCardSchema, 'ApplicationCardMaster');
