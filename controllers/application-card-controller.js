@@ -16,10 +16,13 @@ var addApplicationCard = function (request, response) {
         Hardware: reqBody.Hardware,
         OperatingSystem: reqBody.OperatingSystem,
         OsVersion: reqBody.OsVersion,
-        // Dependancy: reqBody.Dependancy,
         CardType: reqBody.CardType,
         EmergencyContacts: contacts,
-        Tags:reqBody.Tags
+        Tags: reqBody.Tags,
+        SystemOwner: reqBody.SystemOwner,
+        BusinessOwner: reqBody.BusinessOwner,
+        SystemManager: reqBody.SystemManager,
+        BusinessManager: reqBody.BusinessManager
     });
     applicationCardData.save().then((result) => {
         dependencies.forEach(function (d) {
@@ -42,8 +45,9 @@ var getAllApplicationCards = async function (request, response) {
             as: 'Dependencies'
         }
     }];
-
-    var appCards = await ApplicationCardMaster.aggregate(appAggregate).exec();
+    // var appCards = await ApplicationCardMaster.aggregate(appAggregate).exec();
+     var appCards = await ApplicationCardMaster.aggregate().exec();
+    //var appCards = await ApplicationCardMaster.find();
     response.send(appCards);
 };
 var getAppDependancies = async function (request, response) {

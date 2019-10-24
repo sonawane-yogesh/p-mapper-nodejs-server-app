@@ -32,7 +32,9 @@ var fileuploadRoutes = [
 ];
 var systemMemberRoutes = [
     ['api/system-member-controller/add-system-member', 'system-member-controller#addMembers', 'post'],
-    ['api/system-member-controller/get-all-member', 'system-member-controller#getAllMembers', 'get']
+    ['api/system-member-controller/get-all-member', 'system-member-controller#getAllMembers', 'get'],
+    ['api/maintanance-activity-controller/add-activity', 'maintanance-activity-controller#addActivity', 'post'],
+    ['api/maintanance-activity-controller/get-all', 'maintanance-activity-controller#aggAll', 'get']
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],
