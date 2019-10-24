@@ -1,8 +1,11 @@
 var {
     SystemMember
 } = require('../model/index');
+var mongoose = require('mongoose');
+
 var addMembers = function (request, response) {
     var reqBody = request.body;
+   // var reportTo = mongoose.Types.ObjectId(reqBody.ReportTo);    
     var memberDetails = new SystemMember({
         MemberId: reqBody.MemberId,
         MemberName: reqBody.MemberName,
@@ -12,7 +15,8 @@ var addMembers = function (request, response) {
         Phone2: reqBody.Phone2,
         Phone3: reqBody.Phone3,
         SmsPhone: reqBody.SmsPhone,
-        ContactType: reqBody.ContactType
+        ContactType: reqBody.ContactType,
+        ReportTo: reqBody.ReportTo
     });
 
     memberDetails.save().then((result) => {

@@ -41,9 +41,28 @@ var systemMemberSchema = new Schema({
     ContactType: {
         type: String,
         required: true
+    },
+    ReportTo: {
+        type: Schema.Types.ObjectId,
+        required: true
     }
 });
+/*
+var virtual = systemMemberSchema.virtual('MemberType');
+virtual.get(function (value, virtual, doc) {
+    return `${this.MemberName} - ${this.ContactType}`;
+});
 
+
+systemMemberSchema.virtual("MemberType", function () {
+    return `${this.MemberName} - ${this.ContactType}`;    
+});
+
+systemMemberSchema.pre(["find", "findOne"], function (next) {
+    this.MemberType = `${this.MemberName} - ${this.ContactType}`;
+    next();
+});
+*/
 var SystemMember = server.model("SystemMember", systemMemberSchema, "SystemMember");
 module.exports = {
     SystemMember

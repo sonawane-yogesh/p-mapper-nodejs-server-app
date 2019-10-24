@@ -1,4 +1,6 @@
-var { dbServer } = require('../db/db-config');
+var {
+    dbServer
+} = require('../db/db-config');
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -33,31 +35,31 @@ var generalSkillsSchema = new Schema({
         required: true
     },
     CreatedBy: {
-        type: String,
-        required: false
+        type: Schema.Types.ObjectId,
+        required: true
     },
     CreatedOn: {
         type: Date,
         default: Date.now,
-        required: false        
+        required: false
     }
 });
 
 var goalsMasterSchema = new Schema({
-    GoalTitle:{
-        type:String,
+    GoalTitle: {
+        type: String,
         required: true
     },
-    Notes:{
-        type:String,
+    Notes: {
+        type: String,
         required: false
     },
-    Projection :{
-        type:String,
+    Projection: {
+        type: String,
         required: false
     },
-    CurrentStatus :{
-        type:String,
+    CurrentStatus: {
+        type: String,
         required: true
     }
 });
