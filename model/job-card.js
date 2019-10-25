@@ -65,6 +65,18 @@ var jobCardSchema = new Schema({
     CardType: {
         type: String,
         required: true
+    },
+    CreatedOn: {
+        type: Date,
+        default: Date.now
+    },
+    CreatedBy: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    UpdatedOn: {
+        type: Date,
+        default: Date.now
     }
 });
 /*

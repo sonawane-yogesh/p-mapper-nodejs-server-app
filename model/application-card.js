@@ -99,13 +99,22 @@ var appCardSchema = new Schema({
     BusinessOwner: {
         type: String,
         required: true
+    },
+    CreatedOn: {
+        type: Date,
+        default: Date.now
+    },
+    CreatedBy: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    UpdatedOn: {
+        type: Date,
+        default: Date.now
     }
 });
 
-appCardSchema.pre(["find", "findOne"], function (next) {
-    this.populate("EmergencyContacts");
-    next();
-});
+
 
 appCardSchema.pre("aggregate", function (next) {
     this.lookup({

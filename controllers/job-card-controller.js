@@ -17,7 +17,8 @@ var addJobCard = function (request, response) {
         StartTime: reqBody.StartTime,
         EstimatedTime: reqBody.EstimatedTime,
         MissionStatus: reqBody.MissionStatus,
-        CardType: reqBody.CardType
+        CardType: reqBody.CardType,
+        CreatedBy:reqBody.CreatedBy
         //Predecessor: reqBody.Predecessor
     });
 
