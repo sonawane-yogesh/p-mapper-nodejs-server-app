@@ -24,7 +24,7 @@ var {
 } = require('./controllers/file-process-controller');
 setInterval(async function () {
     await fileProcessing();
-}, 120000);
+}, 120000);   
 /*
 var options = {
     key: fs.readFileSync('./certificates/device.key'),

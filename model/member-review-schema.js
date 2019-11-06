@@ -42,6 +42,11 @@ var generalSkillsSchema = new Schema({
         type: Date,
         default: Date.now,
         required: false
+    },
+    UpdatedOn:{
+        type: Date,
+        default: Date.now,
+        required: false
     }
 });
 
@@ -61,6 +66,20 @@ var goalsMasterSchema = new Schema({
     CurrentStatus: {
         type: String,
         required: true
+    },
+    CreatedBy: {
+        type: Schema.Types.ObjectId,
+        required: true
+    },
+    CreatedOn: {
+        type: Date,
+        default: Date.now,
+        required: false
+    },
+    UpdatedOn:{
+        type: Date,
+        default: Date.now,
+        required: false
     }
 });
 
