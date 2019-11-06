@@ -30,9 +30,9 @@ var options = {
     key: fs.readFileSync('./certificates/device.key'),
     cert: fs.readFileSync('./certificates/device.crt')
 };
+
 var server = https.createServer(options, app);
 */
-
 app.listen(port, function () {
     console.log(`p-mapper server is running and up on port ${port}`);
 });
