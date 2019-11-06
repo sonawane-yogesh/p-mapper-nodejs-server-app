@@ -86,19 +86,23 @@ var appCardSchema = new Schema({
     },
     SystemOwner: {
         type: String,
-        required: true
+        required: false,
+        default:""
     },
     SystemManager: {
         type: String,
-        required: true
+        required: false,
+        default:""
     },
     BusinessManager: {
         type: String,
-        required: true
+        required: false,
+        default:""
     },
     BusinessOwner: {
         type: String,
-        required: true
+        required: false,
+        default:""
     },
     CreatedOn: {
         type: Date,
@@ -106,7 +110,8 @@ var appCardSchema = new Schema({
     },
     CreatedBy: {
         type: mongoose.Types.ObjectId,
-        required: true
+        required: false,
+        default:null
     },
     UpdatedOn: {
         type: Date,

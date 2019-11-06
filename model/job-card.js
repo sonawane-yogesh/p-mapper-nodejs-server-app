@@ -72,7 +72,8 @@ var jobCardSchema = new Schema({
     },
     CreatedBy: {
         type: mongoose.Types.ObjectId,
-        required: true
+        required: false,
+        default: null
     },
     UpdatedOn: {
         type: Date,

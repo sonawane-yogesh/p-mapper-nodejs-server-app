@@ -35,13 +35,14 @@ var systemMemberRoutes = [
     ['api/system-member-controller/get-all-member', 'system-member-controller#getAllMembers', 'get'],
     ['api/maintanance-activity-controller/add-activity', 'maintanance-activity-controller#addActivity', 'post'],
     ['api/maintanance-activity-controller/get-all', 'maintanance-activity-controller#aggAll', 'get']
+
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],
     ['api/search-controller/search-card', 'search-controller#searchCardDetails', 'get'],
 ];
 var memberReviewRoutes = [
-    ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post'],
+    ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post']
 ]
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes, systemMemberRoutes, testRoutes, memberReviewRoutes);
