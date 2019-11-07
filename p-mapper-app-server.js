@@ -24,7 +24,7 @@ var {
 } = require('./controllers/file-process-controller');
 setInterval(async function () {
     await fileProcessing();
-}, 120000);   
+}, 120000);
 /*
 var options = {
     key: fs.readFileSync('./certificates/device.key'),
@@ -35,4 +35,4 @@ var server = https.createServer(options, app);
 */
 app.listen(port, function () {
     console.log(`p-mapper server is running and up on port ${port}`);
-}); 
+});
