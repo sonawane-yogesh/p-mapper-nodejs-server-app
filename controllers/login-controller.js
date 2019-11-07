@@ -1,6 +1,8 @@
 var {
     UserMaster
-} = require('../model');
+} = require('../model/index');
+
+
 var checkUserDetails = async function (request, response) {
     var userDetails = await UserMaster.find({});
     response.send(userDetails);
@@ -15,7 +17,9 @@ var addUserDetails = function (request, response) {
         Password: reqBody.Password,
         ContactNo: reqBody.ContactNo,
         EmailId: reqBody.EmailId,
-        Role: reqBody.Role
+        RoleId: reqBody.RoleId,
+        ContactTypeId: reqBody.ContactTypeId,
+        ReportToId: reqBody.ReportToId
     });
     userDetail.save().then((result) => {
         response.send(result);
@@ -42,8 +46,8 @@ var updateUserDetails = function (request, response) {
     console.log(request.body.id);
 };
 var getUserDetails = async function (request, response) {
-    var users = await UserMaster.find();
-    response.send(users);
+    var users = await UserMaster.find({});
+    response.json(users);
 };
 module.exports = {
     checkUserDetails,

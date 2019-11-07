@@ -43,7 +43,18 @@ var testRoutes = [
 ];
 var memberReviewRoutes = [
     ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post']
+];
+
+var roleRoutes = [
+    ["api/role-master-controller/add-role", "role-master-controller#addRole", 'post'],
+    ["api/role-master-controller/get-all-role", "role-master-controller#getAllRole", 'get']
+];
+
+var contactTypeRoutes = [
+    ["api/contact-type-controller/add-contact-type", "contact-type-controller#addContactType", 'post'],
+    ["api/contact-type-controller/get-all-contact-type", "contact-type-controller#getAllContactType", 'get']
 ]
 
-var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes, systemMemberRoutes, testRoutes, memberReviewRoutes);
+
+var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes, systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes);
 module.exports = appRoutes;
