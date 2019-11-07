@@ -11,7 +11,7 @@ var {
     ContactTypeMaster
 } = require("./contact-type-master");
 
-
+// this is user master js
 
 var userSchema = new Schema({
     FirstName: {
