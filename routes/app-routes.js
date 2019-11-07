@@ -34,7 +34,8 @@ var systemMemberRoutes = [
     ['api/system-member-controller/add-system-member', 'system-member-controller#addMembers', 'post'],
     ['api/system-member-controller/get-all-member', 'system-member-controller#getAllMembers', 'get'],
     ['api/maintanance-activity-controller/add-activity', 'maintanance-activity-controller#addActivity', 'post'],
-    ['api/maintanance-activity-controller/get-all', 'maintanance-activity-controller#aggAll', 'get']
+    ['api/maintanance-activity-controller/get-all', 'maintanance-activity-controller#aggAll', 'get'],
+    ['api/system-member-controller/get-members', 'system-member-controller#getMembers', 'get']
 
 ];
 var testRoutes = [
@@ -53,8 +54,8 @@ var roleRoutes = [
 var contactTypeRoutes = [
     ["api/contact-type-controller/add-contact-type", "contact-type-controller#addContactType", 'post'],
     ["api/contact-type-controller/get-all-contact-type", "contact-type-controller#getAllContactType", 'get']
+    ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post'],
 ]
-
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes, systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes);
 module.exports = appRoutes;

@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var addMembers = function (request, response) {
     var reqBody = request.body;
-   // var reportTo = mongoose.Types.ObjectId(reqBody.ReportTo);    
+    // var reportTo = mongoose.Types.ObjectId(reqBody.ReportTo);    
     var memberDetails = new SystemMember({
         MemberId: reqBody.MemberId,
         MemberName: reqBody.MemberName,
@@ -54,7 +54,92 @@ var getAllMembers = async function (request, response) {
     response.send(members);
 };
 
+var getMembers = async function (request, response) {
+    var members = await SystemMember.find();
+    var memberList = [];
+    members.forEach((m) => {
+        memberList.push({
+            _id: m._id,
+            MemberName: m.MemberName,
+            ReportTo: m.ReportTo,
+            ContactType: m.ContactType,
+            label: m.MemberName,
+            children: []
+        });
+    });
+
+    var roots = memberList.filter((m) => {
+        return m.ReportTo === 0 || m.ReportTo === null;
+    });
+    var nonMembers = memberList.filter((m) => {
+        return m.ReportTo !== 0 && m.ReportTo !== null;
+    });
+
+    var treeData = prepareRootChilds(roots, nonMembers);
+    /*
+    var treeData = [];    
+    roots.forEach(r => {
+        var childs = nonMembers.filter((m) => {
+            return m.ReportTo.toString() === r._id.toString();
+        });
+        var c = [];
+        childs.forEach((ch) => {
+            c.push({
+                label: ch.MemberName,
+                id: ch._id
+            });
+        });
+        treeData.push({
+            label: r.MemberName,
+            id: r._id,
+            children: c
+        });
+        r.Done = true;
+    });
+    */
+    response.send(treeData);
+};
+
+var prepareRootChilds = function (rootData, restList) {
+    var treeData = [];
+    rootData.forEach(r => {
+        var childs = restList.filter((m) => {
+            return m.ReportTo.toString() === r._id.toString();
+        });
+        var rt = {
+            label: r.MemberName,
+            id: r._id,
+            children: []
+        };
+        childs.forEach(c => {
+            prepareChildList(c, restList, rt.children);
+        });
+        treeData.push(rt);
+    });
+    return treeData;
+};
+
+var prepareChildList = function (element, restMembers, treeData) {
+    var childs = restMembers.filter((m) => {
+        return m.ReportTo.toString() === element._id.toString();
+    });
+    var c = [];
+    childs.forEach((ch) => {
+        c.push(ch);
+    });
+    element.children = c;
+    treeData.push(element);
+    treeData.forEach(function (tree) {
+        tree.children.forEach((ch) => {
+            prepareChildList(ch, restMembers, ch.children);
+        });
+    });
+    return treeData;
+};
+
+
 module.exports = {
     addMembers,
-    getAllMembers
+    getAllMembers,
+    getMembers
 }
