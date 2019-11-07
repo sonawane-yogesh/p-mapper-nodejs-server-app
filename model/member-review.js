@@ -1,4 +1,6 @@
-var { dbServer } = require('../db/db-config');
+var {
+    dbServer
+} = require('../db/db-config');
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -9,6 +11,14 @@ var {
 
 
 var memberReviewSchema = new Schema({
+    MemberId: {
+        type: mongoose.Types.ObjectId,
+        default: null
+    },
+    MemberName: {
+        type: String,
+        default: null
+    },
     GeneralSkillMaster: GeneralSkillSchema,
     GoalsMaster: GoalsMasterSchema
 })
