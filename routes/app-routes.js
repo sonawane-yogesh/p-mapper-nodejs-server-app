@@ -28,7 +28,7 @@ var applicationRoutes = [
 var fileuploadRoutes = [
     ['api/file-upload-controller/upload-file', 'file-upload-controller#uploadAssociatedFile', 'post'],
     ['api/file-upload-controller/upload-job-app-file', 'file-upload-controller#uploadJobAndAppFile', 'post'],
-    ['api/file-upload-controller/download-file', 'file-upload-controller#downloadFile', 'get'],
+    ['api/file-upload-controller/download-file', 'file-upload-controller#downloadFile', 'get']
 ];
 var systemMemberRoutes = [
     ['api/system-member-controller/add-system-member', 'system-member-controller#addMembers', 'post'],
@@ -40,10 +40,11 @@ var systemMemberRoutes = [
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],
-    ['api/search-controller/search-card', 'search-controller#searchCardDetails', 'get'],
+    ['api/search-controller/search-card', 'search-controller#searchCardDetails', 'get']
 ];
 var memberReviewRoutes = [
-    ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post']
+    ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post'],
+    ['api/member-review-controller/get-member', 'member-review-controller#getMemberReviewById', 'get']
 ];
 
 var roleRoutes = [
@@ -53,9 +54,10 @@ var roleRoutes = [
 
 var contactTypeRoutes = [
     ["api/contact-type-controller/add-contact-type", "contact-type-controller#addContactType", 'post'],
-    ["api/contact-type-controller/get-all-contact-type", "contact-type-controller#getAllContactType", 'get']
+    ["api/contact-type-controller/get-all-contact-type", "contact-type-controller#getAllContactType", 'get'],
     ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post'],
 ]
 
-var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes, systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes);
+var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes,
+     systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes);
 module.exports = appRoutes;

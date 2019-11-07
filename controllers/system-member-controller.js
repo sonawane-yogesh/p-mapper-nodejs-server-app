@@ -60,10 +60,12 @@ var getMembers = async function (request, response) {
     members.forEach((m) => {
         memberList.push({
             _id: m._id,
+            id: m._id,
             MemberName: m.MemberName,
             ReportTo: m.ReportTo,
             ContactType: m.ContactType,
             label: m.MemberName,
+            text: m.MemberName,
             children: []
         });
     });
@@ -108,7 +110,9 @@ var prepareRootChilds = function (rootData, restList) {
         });
         var rt = {
             label: r.MemberName,
+            text: r.MemberName,
             id: r._id,
+            _id: r._id,
             children: []
         };
         childs.forEach(c => {

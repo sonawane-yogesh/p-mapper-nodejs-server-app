@@ -13,7 +13,14 @@ exports.addMemberReview = function (request, response) {
     });
 };
 
-
+exports.getMemberReviewById = async function (request, response) {
+    var id = request.query.id;
+    var res = await MemberReviewMaster.findOne({
+        MemberId: id
+    });
+    response.send(res);
+    // console.log(id);
+};
 
 /*
 exports.addMemberReview = function(request, response){
