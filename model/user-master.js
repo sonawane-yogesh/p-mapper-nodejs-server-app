@@ -46,6 +46,11 @@ var userSchema = new Schema({
     }
 });
 
+var virtualFullName = userSchema.virtual("FullName");
+virtualFullName.get(function () {
+    return `${this.FirstName} ${this.LastName}`;
+});
+
 var roleVirtuals = {
     path: "RoleMaster",
     value: {
@@ -99,6 +104,14 @@ userSchema.pre("aggregate", function (next) {
     userMaster.lookup(contactTypeVirtuals.value).unwind(contactTypeVirtuals.path);
     userMaster.lookup(userMasterVirtuals.value).unwind(userMasterVirtuals.path);
     next();
+});
+
+userSchema.set('toJSON', {
+    virtuals: true
+});
+userSchema.set('toObject', {
+    virtuals: true,
+    getters: true
 });
 
 var UserMaster = server.model('UserMaster', userSchema, 'UserMaster');
