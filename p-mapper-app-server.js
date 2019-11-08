@@ -30,7 +30,6 @@ var options = {
     key: fs.readFileSync('./certificates/device.key'),
     cert: fs.readFileSync('./certificates/device.crt')
 };
-
 var server = https.createServer(options, app);
 
 server.listen(port, function () {

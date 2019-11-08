@@ -62,6 +62,7 @@ maintananceSchema.pre("aggregate", function (next) {
         localField: "ImpactedApps",
         as: "ImpactedApps"
     });
+    
     next();
 });
 

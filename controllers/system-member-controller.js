@@ -1,5 +1,6 @@
 var {
-    SystemMember
+    SystemMember,
+    UserMaster
 } = require('../model/index');
 var mongoose = require('mongoose');
 
@@ -70,35 +71,27 @@ var getMembers = async function (request, response) {
         });
     });
 
-    var roots = memberList.filter((m) => {
+    var userMembers = await UserMaster.find();
+    var userList = [];
+    userMembers.forEach((u) => {
+        userList.push({
+            _id: u._id,
+            id: u._id,
+            MemberName: u.FirstName,
+            ReportTo: u.ReportToId,
+            ContactType: u.ContactTypeId,
+            label: u.FirstName,
+            text: u.FirstName,
+            children: []
+        });
+    });
+    var roots = userList.filter((m) => {
         return m.ReportTo === 0 || m.ReportTo === null;
     });
-    var nonMembers = memberList.filter((m) => {
+    var nonMembers = userList.filter((m) => {
         return m.ReportTo !== 0 && m.ReportTo !== null;
     });
-
     var treeData = prepareRootChilds(roots, nonMembers);
-    /*
-    var treeData = [];    
-    roots.forEach(r => {
-        var childs = nonMembers.filter((m) => {
-            return m.ReportTo.toString() === r._id.toString();
-        });
-        var c = [];
-        childs.forEach((ch) => {
-            c.push({
-                label: ch.MemberName,
-                id: ch._id
-            });
-        });
-        treeData.push({
-            label: r.MemberName,
-            id: r._id,
-            children: c
-        });
-        r.Done = true;
-    });
-    */
     response.send(treeData);
 };
 

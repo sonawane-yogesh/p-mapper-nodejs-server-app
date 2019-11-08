@@ -15,11 +15,12 @@ exports.addMemberReview = function (request, response) {
 
 exports.getMemberReviewById = async function (request, response) {
     var id = request.query.id;
-    var res = await MemberReviewMaster.findOne({
+    var res = await MemberReviewMaster.find({
         MemberId: id
     });
+
+   // var res1 = await MemberReviewMaster.aggregate().exec();
     response.send(res);
-    // console.log(id);
 };
 
 /*

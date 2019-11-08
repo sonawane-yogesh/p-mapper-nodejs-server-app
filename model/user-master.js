@@ -66,7 +66,7 @@ var contactTypeVirtuals = {
         as: "ContactTypeMaster"
     },
     fields: ["_id", "ContactType"]
-}
+};
 
 var userMasterVirtuals = {
     path: "UserMaster",
@@ -77,7 +77,7 @@ var userMasterVirtuals = {
         as: "ReportsTo"
     },
     fields: ["_id", "FirstName", "LastName", "ContactTypeId"]
-}
+};
 
 userSchema.virtual(roleVirtuals.path, roleVirtuals.value);
 userSchema.virtual(contactTypeVirtuals.path, contactTypeVirtuals.value);
