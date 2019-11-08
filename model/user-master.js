@@ -47,7 +47,7 @@ var userSchema = new Schema({
 });
 
 var virtualFullName = userSchema.virtual("FullName");
-virtualFullName.get(function () {
+virtualFullName.get(function (value, virtual, doc) {
     return `${this.FirstName} ${this.LastName}`;
 });
 
