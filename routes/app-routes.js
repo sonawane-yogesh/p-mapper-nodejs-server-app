@@ -6,6 +6,7 @@ var userRoutes = [
     ['api/login-controller/add-user', 'login-controller#addUserDetails', 'post'],
     ['api/login-controller/update-user', 'login-controller#updateUserDetails', 'post'],
     ['api/login-controller/get-users', 'login-controller#getUserDetails', 'get']
+
 ];
 var jobRoutes = [
     ['api/job-card-controller/add-job', 'job-card-controller#addJobCard', 'post'],
@@ -40,7 +41,8 @@ var systemMemberRoutes = [
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],
-    ['api/search-controller/search-card', 'search-controller#searchCardDetails', 'get']
+    ['api/search-controller/search-card', 'search-controller#searchCardDetails', 'get'],
+    ['api/card-dependencies/get-all-dependencies', 'job-dependencies-diagram#getAllDepedencies', 'get']
 ];
 var memberReviewRoutes = [
     ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post'],
@@ -56,9 +58,14 @@ var contactTypeRoutes = [
     ["api/contact-type-controller/add-contact-type", "contact-type-controller#addContactType", 'post'],
     ["api/contact-type-controller/get-all-contact-type", "contact-type-controller#getAllContactType", 'get'],
     ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post']
+];
 
-]
+var technicalSkillRoutes = [
+    ["api/technical-skill-controller/add-skill", "technical-skill-controller#addSkill", 'post'],
+    ["api/technical-skill-controller/get-skills", "technical-skill-controller#getSkills", 'get']
+];
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes,
-    systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes);
+    systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes,
+    technicalSkillRoutes);
 module.exports = appRoutes;

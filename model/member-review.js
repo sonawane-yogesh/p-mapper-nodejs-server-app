@@ -20,7 +20,7 @@ var memberReviewSchema = new Schema({
         default: null
     },
     GeneralSkillMaster: GeneralSkillSchema,
-    GoalsMaster: GoalsMasterSchema,
+    GoalsMaster: [GoalsMasterSchema],
     CreatedBy: {
         type: mongoose.Types.ObjectId,
         required: false,
@@ -41,7 +41,7 @@ var memberReviewSchema = new Schema({
         }
     }
 });
-// Do not remove this commented portion... PLEASE
+// Do not remove this commented portion... 
 // memberReviewSchema.virtual("DateCreated");
 // const { dateFormatPlugin} = require("../plugins/date-format-plugin");
 // memberReviewSchema.plugin(dateFormatPlugin);

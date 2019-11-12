@@ -17,21 +17,21 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 expressPath(app, appRoutes);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;  
 
 var {
     fileProcessing
 } = require('./controllers/file-process-controller');
 setInterval(async function () {
-    await fileProcessing();
+    await fileProcessing();   
 }, 120000);
-/*
+
 var options = {
     key: fs.readFileSync('./certificates/device.key'),
     cert: fs.readFileSync('./certificates/device.crt')
 };
 var server = https.createServer(options, app);
-*/
-app.listen(port, function () {
-    console.log(`p-mapper server is running and up on port ${port}`);
+
+server.listen(port, function () {
+    console.log(`p-mapper server is running and up on port: ${port}`);
 });

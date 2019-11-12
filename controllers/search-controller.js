@@ -94,9 +94,11 @@ var searchCardDetails = async function (request, response) {
                 preserveNullAndEmptyArrays: true
             }
         }];
-    };
+    };   
     var textContents = await FileTextContent.aggregate(fileTextContentAggregate).exec();
     for (textContent of textContents) {
+        if(!textContent.JobCardMaster) continue;
+        if(!textContent.JobCardMaster.AssociatedFiles) continue;
         var assFile = textContent.JobCardMaster.AssociatedFiles
             .filter(a => a._id.toString() === textContent.AssociatedFileId.toString());
         textContent.JobCardMaster.AssociatedFiles = assFile;

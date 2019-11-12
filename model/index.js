@@ -34,9 +34,16 @@ var {
     MemberReviewMaster
 } = require("../model/member-review");
 
-var {RoleMaster} = require("../model/role-master");
+var {
+    RoleMaster
+} = require("../model/role-master");
 
-var {ContactTypeMaster} = require("./contact-type-master");  
+var {
+    ContactTypeMaster
+} = require("./contact-type-master");
+var {
+    TechnicalSkillMaster
+} = require("./technical-skill");
 
 module.exports = {
     JobDependencies,
@@ -53,5 +60,6 @@ module.exports = {
     MaintananceActivity,
     MemberReviewMaster,
     RoleMaster,
-    ContactTypeMaster
+    ContactTypeMaster,
+    TechnicalSkillMaster
 }

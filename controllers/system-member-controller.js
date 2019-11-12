@@ -77,11 +77,11 @@ var getMembers = async function (request, response) {
         userList.push({
             _id: u._id,
             id: u._id,
-            MemberName: u.FirstName,
+            MemberName: `${u.FirstName} ${u.LastName} (${u.Username})`,
             ReportTo: u.ReportToId,
             ContactType: u.ContactTypeId,
-            label: u.FirstName,
-            text: u.FirstName,
+            label: `${u.FirstName} ${u.LastName} (${u.Username})`,
+            text: `${u.FirstName} ${u.LastName} (${u.Username})`,
             children: []
         });
     });

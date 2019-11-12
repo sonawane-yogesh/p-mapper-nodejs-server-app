@@ -83,6 +83,8 @@ var goalsMasterSchema = new Schema({
     }
 });
 
+
+
 module.exports.GoalsMasterSchema = goalsMasterSchema;
 module.exports.GeneralSkillSchema = generalSkillsSchema;
 module.exports.GeneralSkillMaster = server.model('GeneralSkillMaster', generalSkillsSchema, 'GeneralSkillMaster');
