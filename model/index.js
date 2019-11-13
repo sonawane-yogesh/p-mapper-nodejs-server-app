@@ -27,7 +27,7 @@ var {
     GeneralSkillSchema
 } = require("../model/member-review-schema");
 var {
-    MaintananceActivity
+    MaintenanceActivity
 } = require("../model/maintanance-activity");
 
 var {
@@ -57,7 +57,7 @@ module.exports = {
     GoalsMaster,
     GoalsMasterSchema,
     GeneralSkillSchema,
-    MaintananceActivity,
+    MaintenanceActivity,
     MemberReviewMaster,
     RoleMaster,
     ContactTypeMaster,

@@ -52,9 +52,14 @@ var getAllMembers = async function (request, response) {
     for (let n of nonDevs) {
         members.others.push(n);
     }
+
     response.send(members);
 };
 
+var getAllUserMembers = async function (request, response) {
+    var result = await UserMaster.find({});
+    response.send(result);
+};
 var getMembers = async function (request, response) {
     var members = await SystemMember.find();
     var memberList = [];
@@ -138,5 +143,6 @@ var prepareChildList = function (element, restMembers, treeData) {
 module.exports = {
     addMembers,
     getAllMembers,
-    getMembers
+    getMembers,
+    getAllUserMembers
 }

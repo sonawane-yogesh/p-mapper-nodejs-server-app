@@ -5,11 +5,9 @@ var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var {
-    ApplicationCardMaster
-} = require("./application-card");
-var {
-    SystemMember
-} = require("./system-members");
+    ApplicationCardMaster,
+    UserMaster
+} = require("../model/index");
 
 var maintananceSchema = new Schema({
     AppName: {
@@ -34,24 +32,45 @@ var maintananceSchema = new Schema({
     }],
     DevelopmentTeam: [{
         type: mongoose.Types.ObjectId,
-        ref: SystemMember
+        ref: UserMaster
     }],
-    StakeholderTeam: [],
+    StakeholderTeam: [{
+        type: mongoose.Types.ObjectId,
+        ref: UserMaster
+    }],
     CurrentPhase: {
         type: String,
         required: true
+    },
+    ApplicationId: {
+        type: mongoose.Types.ObjectId
     }
 });
 
+var appMasterVirtuals = {
+    path: "ApplicationCardMaster",
+    value: {
+        from: "ApplicationCardMaster",
+        localField: "ApplicationId",
+        foreignField: "_id",
+        as: "ApplicationCardMaster"
+    },
+    fields: ["_id", "AppTitle"]
+};
+maintananceSchema.virtual(appMasterVirtuals.path, appMasterVirtuals.value);
+
 maintananceSchema.pre(["find", "findOne"], function (next) {
-    this.populate("DevelopmentTeam");
-    this.populate("ImpactedApps");
+    var mSchema = this;
+    // this.populate("DevelopmentTeam");
+    // this.populate("ImpactedApps");
+    // this.populate("StakeholderTeam");
+    mSchema.populate(appMasterVirtuals.path, appMasterVirtuals.fields, ApplicationCardMaster);
     next();
 });
 
 maintananceSchema.pre("aggregate", function (next) {
     this.lookup({
-        from: "SystemMember",
+        from: "UserMaster",
         foreignField: "_id",
         localField: "DevelopmentTeam",
         as: "DevelopmentTeam"
@@ -62,11 +81,25 @@ maintananceSchema.pre("aggregate", function (next) {
         localField: "ImpactedApps",
         as: "ImpactedApps"
     });
-    
+    this.lookup({
+        from: "UserMaster",
+        foreignField: "_id",
+        localField: "StakeholderTeam",
+        as: "StakeholderTeam"
+    });
+    this.lookup(appMasterVirtuals.value).unwind(appMasterVirtuals.path);
     next();
 });
 
-var MaintananceActivity = server.model("MaintananceActivity", maintananceSchema, "MaintananceActivity");
+maintananceSchema.set("toJSON", {
+    virtuals: true
+});
+maintananceSchema.set('toObject', {
+    virtuals: true,
+    getters: true
+});
+
+var MaintenanceActivity = server.model("MaintenanceActivity", maintananceSchema, "MaintenanceActivity");
 module.exports = {
-    MaintananceActivity
-}
+    MaintenanceActivity
+};
