@@ -4,6 +4,10 @@ var {
 } = require("../model");
 var mongoose = require("mongoose");
 
+exports.getdependencies = async function (request, response) {
+    var applicationCard = await AppDependencies.find({});
+    response.json(applicationCard);
+};
 
 exports.getAppDependencies = async function (request, response) {
     "use strict";
@@ -19,7 +23,7 @@ exports.getAppDependencies = async function (request, response) {
     diagramData.Nodes.push(appNode);
     await getParents(id, appNode, diagramData);
     await getChilds(id, appNode, diagramData);
-    console.log(applicationCard);
+    console.log(diagramData);
     response.send(diagramData);
 };
 
@@ -44,9 +48,9 @@ var getChilds = async function (appId, parent, diagramData) {
         var existingLink = diagramData.Links.find(function (e) {
             return e.Origin === childLink.Origin && e.Target === childLink.Target;
         });
-        if (!existingLink) diagramData.Links.push(childLink);        
+        if (!existingLink) diagramData.Links.push(childLink);
         var app = a.AppId.toString();
-        await getChilds(app, childNode, Date)
+        await getChilds(app, childNode, diagramData);
     }
     return diagramData;
 
@@ -61,14 +65,17 @@ var getParents = async function (appId, target, diagramData) {
         AppId: mongoose.Types.ObjectId(appId)
     });
     for (let a of appDependencies) {
-        var parentNode = prepareNode(a.DependencyId.toString(), a.DependencyTitle, "#ADD8E6", "RoundRect", target.GroupName, target.GroupId);
+        var applicationCard = await ApplicationCardMaster.findOne({
+            _id: mongoose.Types.ObjectId(a.DependencyId)
+        });
+        var parentNode = prepareNode(a.DependencyId.toString(), a.DependencyTitle, "#ADD8E6", "RoundRect", applicationCard.ServerName, target.GroupId);
         var existingNode = diagramData.Nodes.find(function (e) {
             return e.Id === parentNode.Id;
         });
         if (!existingNode) diagramData.Nodes.push(parentNode);
         var parentLink = prepareLink(parentNode.Id, target.Id, a.DependencyTitle, "red");
         var existingLink = diagramData.Links.find(function (e) {
-            return e.Origin === parentLink.Origin && e.target === parentLink.target
+            return e.Origin === parentLink.Origin && e.Target === parentLink.Target;
         });
         if (!existingLink) diagramData.Links.push(parentLink);
         var app = a.DependencyId.toString();

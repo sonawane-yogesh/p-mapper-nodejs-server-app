@@ -23,7 +23,7 @@ var appDependenciesSchema = new Schema({
 var applicationCardMasterVirtuals = {
     path: "ApplicationCardMaster",
     value: {
-        form: "ApplicationCardMaster",
+        from: "ApplicationCardMaster",
         foreignField: "_id",
         localField: "AppId",
         as: "ApplicationCardMaster",
@@ -31,24 +31,40 @@ var applicationCardMasterVirtuals = {
     fields: ["_id", "AppTitle", "ServerName"]
 }
 
+/*
+var applicationMasterVirtuals = {
+    path: "ApplicationCardMaster",
+    value: {
+        from: "ApplicationCardMaster",
+        foreignField: "_id",
+        localField: "DependencyId",
+        as: "AppCardMaster",
+    },
+    fields: ["_id", "AppTitle", "ServerName"]
+}
+*/
 appDependenciesSchema.virtual(applicationCardMasterVirtuals.path, applicationCardMasterVirtuals.value);
+// appDependenciesSchema.virtual(applicationMasterVirtuals.path, applicationMasterVirtuals.value);
 
 appDependenciesSchema.pre(["find", "findOne"], function (next) {
     var appDepends = this;
-    appDepends.populate(applicationCardMasterVirtuals.path, applicationCardMasterVirtuals.fields, ApplicationCardMaster)
+    appDepends.populate(applicationCardMasterVirtuals.path, applicationCardMasterVirtuals.fields, ApplicationCardMaster);
+    // appDepends.populate(applicationMasterVirtuals.path, applicationMasterVirtuals.fields, ApplicationCardMaster);
     next();
 })
 
-appDependenciesSchema.pre("aggregate", function(next){
+appDependenciesSchema.pre("aggregate", function (next) {
     var appDepends = this;
     appDepends.lookup(applicationCardMasterVirtuals.value).unwind(applicationCardMasterVirtuals.path);
+    // appDepends.lookup(applicationMasterVirtuals.value).unwind(applicationMasterVirtuals.path);
+    next();
 })
 
 appDependenciesSchema.set('toJSON', {
     virtuals: true
 })
 
-appDependenciesSchema.set('toObject',{
+appDependenciesSchema.set('toObject', {
     virtuals: true,
     getters: true
 })
