@@ -65,10 +65,12 @@ maintananceSchema.pre(["find", "findOne"], function (next) {
     // this.populate("ImpactedApps");
     // this.populate("StakeholderTeam");
     mSchema.populate(appMasterVirtuals.path, appMasterVirtuals.fields, ApplicationCardMaster);
+    
     next();
 });
 
 maintananceSchema.pre("aggregate", function (next) {
+    
     this.lookup({
         from: "UserMaster",
         foreignField: "_id",
@@ -88,6 +90,7 @@ maintananceSchema.pre("aggregate", function (next) {
         as: "StakeholderTeam"
     });
     this.lookup(appMasterVirtuals.value).unwind(appMasterVirtuals.path);
+    
     next();
 });
 
