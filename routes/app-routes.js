@@ -27,6 +27,7 @@ var applicationRoutes = [
     ['api/application-card-controller/delete-card', 'application-card-controller#deleteAppCards', 'delete'],
     ['api/application-card-controller/get-app-card', 'application-card-controller#getAppCardById', 'get'],
     ['api/app-dependencies-diagram/get-app-dependencies','app-dependencies-diagram#getAppDependencies', 'get'],
+    ['api/app-dependencies-diagram/getdependencies','app-dependencies-diagram#getdependencies', 'get']
 ];
 var fileuploadRoutes = [
     ['api/file-upload-controller/upload-file', 'file-upload-controller#uploadAssociatedFile', 'post'],
