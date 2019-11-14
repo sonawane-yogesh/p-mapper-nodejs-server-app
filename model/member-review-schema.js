@@ -43,7 +43,7 @@ var generalSkillsSchema = new Schema({
         default: Date.now,
         required: false
     },
-    UpdatedOn:{
+    UpdatedOn: {
         type: Date,
         default: Date.now,
         required: false
@@ -76,16 +76,41 @@ var goalsMasterSchema = new Schema({
         default: Date.now,
         required: false
     },
-    UpdatedOn:{
+    UpdatedOn: {
         type: Date,
         default: Date.now,
         required: false
     }
 });
 
+var technicalSkillSchema = new Schema({
+    SkillName: {
+        type: String,
+        required: true
+    },
+    SkillId: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    Rating: {
+        type: Number,
+        required: true
+    }
+});
 
-
+var currentProjects = new Schema({
+    ProjectId: {
+        type: mongoose.Types.ObjectId
+    },
+    TicketTitle: {
+        type: String
+    }
+});
 module.exports.GoalsMasterSchema = goalsMasterSchema;
 module.exports.GeneralSkillSchema = generalSkillsSchema;
+module.exports.TechSkillSchema = technicalSkillSchema;
+module.exports.CurrentProjectSchema = currentProjects;
 module.exports.GeneralSkillMaster = server.model('GeneralSkillMaster', generalSkillsSchema, 'GeneralSkillMaster');
 module.exports.GoalsMaster = server.model('GoalsMaster', goalsMasterSchema, 'GoalsMaster');
+module.exports.TechSkillMaster = server.model("TechSkillMaster", technicalSkillSchema, "TechSkillMaster");
+module.exports.CurrentProjectMaster = server.model("CurrentProjectMaster", currentProjects, "CurrentProjectMaster")

@@ -1,10 +1,11 @@
 // var {GeneralSkillsMaster, GoalsMaster} = require("../model");
 var {
-    MemberReviewMaster
+    MemberReviewMaster,
+    GoalsMaster
 } = require("../model");
 var mongoose = require("mongoose");
 
-exports.addMemberReview = function (request, response) {
+var addMemberReview = function (request, response) {
     var body = request.body;
     MemberReviewMaster.create(body).then(r => {
         response.status(200).send(JSON.stringify(r));
@@ -12,17 +13,62 @@ exports.addMemberReview = function (request, response) {
         response.status(500).send(JSON.stringify(err));
     });
 };
-
-exports.getMemberReviewById = async function (request, response) {
+var getMemberReviewById = async function (request, response) {
     var id = request.query.id;
     var res = await MemberReviewMaster.find({
         MemberId: id
     });
 
-   // var res1 = await MemberReviewMaster.aggregate().exec();
+    // var res1 = await MemberReviewMaster.aggregate().exec();
     response.send(res);
 };
 
+var deleteGoalById = function (request, response) {
+    var id = request.query.id;
+    MemberReviewMaster.update({
+        "GoalsMaster._id": mongoose.Types.ObjectId(id)
+    }, {
+        $pull: {
+            "GoalsMaster": {
+                _id: mongoose.Types.ObjectId(id)
+            }
+        }
+    }, {
+        multi: true
+    }, (err, res) => {
+        if (err)
+            response.send(err);
+        else
+            response.send(res);
+    });
+};
+
+var deleteSkillById = function (request, response) {
+    var id = request.query.id;
+    MemberReviewMaster.update({
+        "TechSkillMaster._id": mongoose.Types.ObjectId(id)
+    }, {
+        $pull: {
+            "TechSkillMaster": {
+                _id: mongoose.Types.ObjectId(id)
+            }
+        }
+    }, {
+        multi: true
+    }, (err, res) => {
+        if (err)
+            response.send(err);
+        else
+            response.send(res);
+    });
+    console.log('requested id is ', id);
+};
+module.exports = {
+    addMemberReview,
+    getMemberReviewById,
+    deleteGoalById,
+    deleteSkillById
+};
 /*
 exports.addMemberReview = function(request, response){
     var body = request.body;    

@@ -6,7 +6,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var {
     GeneralSkillSchema,
-    GoalsMasterSchema
+    GoalsMasterSchema,
+    TechSkillSchema,
+    CurrentProjectSchema
 } = require("./member-review-schema");
 
 
@@ -21,6 +23,8 @@ var memberReviewSchema = new Schema({
     },
     GeneralSkillMaster: GeneralSkillSchema,
     GoalsMaster: [GoalsMasterSchema],
+    TechSkillMaster: [TechSkillSchema],
+    CurrentProjectMaster: [CurrentProjectSchema],
     CreatedBy: {
         type: mongoose.Types.ObjectId,
         required: false,

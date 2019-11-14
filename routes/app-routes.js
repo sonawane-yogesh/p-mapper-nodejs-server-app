@@ -38,8 +38,10 @@ var systemMemberRoutes = [
     ['api/system-member-controller/get-all-member', 'system-member-controller#getAllMembers', 'get'],
     ['api/maintanance-activity-controller/add-activity', 'maintanance-activity-controller#addActivity', 'post'],
     ['api/maintanance-activity-controller/get-all', 'maintanance-activity-controller#aggAll', 'get'],
-    ['api/system-member-controller/get-members', 'system-member-controller#getMembers', 'get']
-
+    ['api/system-member-controller/get-members', 'system-member-controller#getMembers', 'get'],
+    ['api/system-member-controller/get-user-members', 'system-member-controller#getAllUserMembers', 'get'],
+    ['api/maintanance-activity-controller/get-all-activities', 'maintanance-activity-controller#getActivities', 'get'],
+    ['api/maintanance-activity-controller/update-activity', 'maintanance-activity-controller#updateActivity', 'post']
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],
@@ -48,7 +50,9 @@ var testRoutes = [
 ];
 var memberReviewRoutes = [
     ['api/member-review-controller/add-member-review', 'member-review-controller#addMemberReview', 'post'],
-    ['api/member-review-controller/get-member', 'member-review-controller#getMemberReviewById', 'get']
+    ['api/member-review-controller/get-member', 'member-review-controller#getMemberReviewById', 'get'],
+    ['api/member-review-controller/delete-goal', 'member-review-controller#deleteGoalById', 'delete'],
+    ['api/member-review-controller/delete-skill', 'member-review-controller#deleteSkillById', 'delete']
 ];
 
 var roleRoutes = [
