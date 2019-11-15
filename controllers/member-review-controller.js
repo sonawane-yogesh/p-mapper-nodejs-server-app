@@ -18,14 +18,13 @@ var getMemberReviewById = async function (request, response) {
     var res = await MemberReviewMaster.find({
         MemberId: id
     });
-
     // var res1 = await MemberReviewMaster.aggregate().exec();
     response.send(res);
 };
 
 var deleteGoalById = function (request, response) {
     var id = request.query.id;
-    MemberReviewMaster.update({
+    MemberReviewMaster.updateOne({
         "GoalsMaster._id": mongoose.Types.ObjectId(id)
     }, {
         $pull: {
@@ -45,7 +44,7 @@ var deleteGoalById = function (request, response) {
 
 var deleteSkillById = function (request, response) {
     var id = request.query.id;
-    MemberReviewMaster.update({
+    MemberReviewMaster.updateOne({
         "TechSkillMaster._id": mongoose.Types.ObjectId(id)
     }, {
         $pull: {

@@ -17,15 +17,13 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 expressPath(app, appRoutes);
-const port = process.env.PORT || 3000;  
-
+const port = process.env.PORT || 3000;
 var {
     fileProcessing
 } = require('./controllers/file-process-controller');
 setInterval(async function () {
-    await fileProcessing();   
+    await fileProcessing();
 }, 120000);
-
 
 var options = {
     key: fs.readFileSync('./certificates/device.key'),
@@ -35,6 +33,6 @@ var server = https.createServer(options, app);
 
 server.listen(port, "192.168.1.2", function () {
     var serverDetails = this.address();
-    console.log(serverDetails);    
+    console.log(serverDetails);
     console.log(`p-mapper server is running and up at: ${JSON.stringify(serverDetails)}`);
 });

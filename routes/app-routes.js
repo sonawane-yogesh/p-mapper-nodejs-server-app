@@ -1,4 +1,5 @@
 var demoRoutes = [
+    ["api/home/get", "home-controller#status", "get"],
     ['api/demo-controller/demo', 'demo-controller#demoFunc', 'get']
 ];
 var userRoutes = [
