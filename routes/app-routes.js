@@ -1,5 +1,5 @@
 var demoRoutes = [
-    ["api/home/get", "home-controller#status", "get"],
+    // ["api/home/get", "home-controller#status", "get"],
     ['api/demo-controller/demo', 'demo-controller#demoFunc', 'get']
 ];
 var userRoutes = [
@@ -7,7 +7,6 @@ var userRoutes = [
     ['api/login-controller/add-user', 'login-controller#addUserDetails', 'post'],
     ['api/login-controller/update-user', 'login-controller#updateUserDetails', 'post'],
     ['api/login-controller/get-users', 'login-controller#getUserDetails', 'get']
-
 ];
 var jobRoutes = [
     ['api/job-card-controller/add-job', 'job-card-controller#addJobCard', 'post'],
@@ -26,8 +25,8 @@ var applicationRoutes = [
     ['api/application-card-controller/update-app-card', 'application-card-controller#updateApplicationCard', 'post'],
     ['api/application-card-controller/delete-card', 'application-card-controller#deleteAppCards', 'delete'],
     ['api/application-card-controller/get-app-card', 'application-card-controller#getAppCardById', 'get'],
-    ['api/app-dependencies-diagram/get-app-dependencies','app-dependencies-diagram#getAppDependencies', 'get'],
-    ['api/app-dependencies-diagram/getdependencies','app-dependencies-diagram#getdependencies', 'get']
+    ['api/app-dependencies-diagram/get-app-dependencies', 'app-dependencies-diagram#getAppDependencies', 'get'],
+    ['api/app-dependencies-diagram/getdependencies', 'app-dependencies-diagram#getdependencies', 'get']
 ];
 var fileuploadRoutes = [
     ['api/file-upload-controller/upload-file', 'file-upload-controller#uploadAssociatedFile', 'post'],
