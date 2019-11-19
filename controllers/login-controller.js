@@ -4,6 +4,8 @@ var {
 
 
 var checkUserDetails = async function (request, response) {
+    // var userMaster = request.body;
+    // var userDetails = await UserMaster.findOne(userMaster);
     var userDetails = await UserMaster.find({});
     response.send(userDetails);
 };
@@ -49,9 +51,17 @@ var getUserDetails = async function (request, response) {
     var users = await UserMaster.find({});
     response.json(users);
 };
+
+var aggUserMaster = async function (request, response) {
+    //  var users = await UserMaster.aggregate().exec();
+    var users = await UserMaster.aggregate().exec();
+    response.json(users);
+};
+
 module.exports = {
     checkUserDetails,
     addUserDetails,
     getUserDetails,
-    updateUserDetails
+    updateUserDetails,
+    aggUserMaster
 };

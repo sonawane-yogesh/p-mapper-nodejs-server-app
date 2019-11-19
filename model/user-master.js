@@ -79,7 +79,7 @@ var userMasterVirtuals = {
         from: "UserMaster",
         foreignField: "_id",
         localField: "ReportToId",
-        as: "ReportsTo"
+        as: "UserMaster"
     },
     fields: ["_id", "FirstName", "LastName", "ContactTypeId"]
 };
@@ -102,7 +102,7 @@ userSchema.pre("aggregate", function (next) {
     var userMaster = this;
     userMaster.lookup(roleVirtuals.value).unwind(roleVirtuals.path);
     userMaster.lookup(contactTypeVirtuals.value).unwind(contactTypeVirtuals.path);
-    userMaster.lookup(userMasterVirtuals.value).unwind(userMasterVirtuals.path);
+    userMaster.lookup(userMasterVirtuals.value).unwind(userMasterVirtuals.path); // .lookup(userMasterVirtuals.value).unwind(userMasterVirtuals.path);
     next();
 });
 

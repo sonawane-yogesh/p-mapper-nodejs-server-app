@@ -7,32 +7,24 @@ var {
 
 module.exports.dashBoardCounts = async function (request, response) {
     var dashBoard = [];
-    var job = await JobCardMaster.count();
+    var job = await JobCardMaster.countDocuments();
     dashBoard.push({
         title: "Job Cards",
         count: job
     });
 
-    var app = await ApplicationCardMaster.count();
+    var app = await ApplicationCardMaster.countDocuments();
     dashBoard.push({
         title: "Application Cards",
         count: app
     });
-<<<<<<< HEAD
-    await UserMaster.count().then((member) => {
+    await UserMaster.countDocuments().then((member) => {
         dashBoard.push({
             title: "Members",
             count: member
         });
     }).catch((err) => {
         console.log(err);
-=======
-
-    var user = await UserMaster.count();
-    dashBoard.push({
-        title: "Members",
-        count: user
->>>>>>> 2f6f472b0fa007bf1032718c73268e68d6125af4
     });
     response.send(dashBoard);
 };

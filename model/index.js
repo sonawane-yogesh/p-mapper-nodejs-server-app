@@ -12,7 +12,7 @@ var {
     ApplicationCardMaster
 } = require('../model/application-card');
 var {
-    UserMaster
+    UserMaster, UserMasterSchema
 } = require('../model/user-master');
 var {
     FileTextContent
@@ -51,6 +51,7 @@ module.exports = {
     JobCardMaster,
     ApplicationCardMaster,
     UserMaster,
+    UserMasterSchema,
     FileTextContent,
     SystemMember,
     GeneralSkillsMaster,

@@ -39,7 +39,7 @@ var addApplicationCard = function (request, response) {
 };
 var getAllApplicationCards = async function (request, response) {
     //var appCards = await ApplicationCardMaster.find();
-       var appCards = await ApplicationCardMaster.aggregate().exec();
+    var appCards = await ApplicationCardMaster.aggregate().exec();
     response.send(appCards);
 };
 var getAppDependancies = async function (request, response) {

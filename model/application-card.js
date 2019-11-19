@@ -5,7 +5,8 @@ var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var {
-    UserMaster
+    UserMaster,
+    UserMasterSchema
 } = require('../model/index');
 
 // var emergencyContactSchema = new Schema({
@@ -129,6 +130,28 @@ var appCardSchema = new Schema({
         default: Date.now
     }
 });
+
+var userMasterVirtuals = {
+    path: "UserMaster",
+    value: {
+        from: "UserMaster",
+        foreignField: "_id",
+        localField: "EmergencyContacts",
+        as: "UserMaster"
+    },
+    fields: ["_id", "FirstName", "LastName", "ContactTypeId"]
+};
+
+appCardSchema.virtual(userMasterVirtuals.path, userMasterVirtuals.value);
+
+const findHook = function (next) {
+    var appCards = this;
+    appCards.populate(userMasterVirtuals.path, userMasterVirtuals.fields);
+    // appCards.populate(userMasterVirtuals.path, userMasterVirtuals.fields, UserMaster);
+    next();
+};
+
+appCardSchema.pre(["find", "findOne"], findHook);
 
 appCardSchema.pre("aggregate", function (next) {
     this.lookup({
