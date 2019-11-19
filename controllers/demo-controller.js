@@ -1,4 +1,6 @@
-var {JobCardMaster}=require("../model/index");
+var {
+    JobCardMaster
+} = require("../model/index");
 
 exports.demoFunc = function (request, response) {
     return response.send({
@@ -6,6 +8,3 @@ exports.demoFunc = function (request, response) {
     });
 };
 
-exports.countCards=async function(request,response){
-var jobCards=await JobCardMaster.where({}).countDocuments();
-}

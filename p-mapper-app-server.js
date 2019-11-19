@@ -31,8 +31,11 @@ var options = {
 };
 var server = https.createServer(options, app);
 
-server.listen(port, "192.168.1.2", function () {
+server.listen(port, function () {
     var serverDetails = this.address();
     console.log(serverDetails);
     console.log(`p-mapper server is running and up at: ${JSON.stringify(serverDetails)}`);
-});
+});       
+
+
+
