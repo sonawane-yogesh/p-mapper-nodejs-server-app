@@ -4,7 +4,7 @@ var {
 
 var aggAll = async function (req, res) {
     // var r = await MaintenanceActivity.find();
-    var r = await MaintenanceActivity.aggregate().exec();
+    var r = await MaintenanceActivity.aggregate([]).exec();
     res.json(r);
 };
 

@@ -23,10 +23,9 @@ exports.getAppDependencies = async function (request, response) {
     diagramData.Nodes.push(appNode);
     await getParents(id, appNode, diagramData);
     await getChilds(id, appNode, diagramData);
-    console.log(diagramData);
+   // console.log(diagramData);
     response.send(diagramData);
 };
-
 
 var getChilds = async function (appId, parent, diagramData) {
     "use strict",
@@ -38,7 +37,7 @@ var getChilds = async function (appId, parent, diagramData) {
     for (let a of appDependencies) {
         var toObject = a.toObject();
         var applicationCard = toObject.ApplicationCardMaster;
-        console.log(applicationCard);
+       // console.log(applicationCard);
         var childNode = prepareNode(applicationCard._id.toString(), applicationCard.AppTitle, "#ADD8E6", "RoundRect", applicationCard.ServerName, parent.GroupId);
         var existingNode = diagramData.Nodes.find(function (e) {
             return e.Id === childNode.Id;
@@ -53,8 +52,7 @@ var getChilds = async function (appId, parent, diagramData) {
         await getChilds(app, childNode, diagramData);
     }
     return diagramData;
-
-}
+};
 
 var getParents = async function (appId, target, diagramData) {
     "use strict";
@@ -82,8 +80,7 @@ var getParents = async function (appId, target, diagramData) {
         await getParents(app, parentNode, diagramData);
     }
     return diagramData;
-}
-
+};
 
 var prepareNode = function (nodeId, nodeName, color, shape, groupName, groupId) {
     var nodeObj = {
@@ -96,7 +93,7 @@ var prepareNode = function (nodeId, nodeName, color, shape, groupName, groupId) 
         GroupId: groupId
     }
     return nodeObj;
-}
+};
 
 var prepareLink = function (origin, target, linkText, lineColor) {
     var linkObj = {
@@ -106,8 +103,7 @@ var prepareLink = function (origin, target, linkText, lineColor) {
         LineColor: lineColor
     }
     return linkObj;
-}
-
+};
 
 /*
 module.exports = {

@@ -111,12 +111,13 @@ var deleteCards = function (request, response) {
     });
 };
 var updateAssociatedFiles = async function (request, response) {
+    var cardId = request.query.id;
     var reqBody = request.body;
     var finalList = [];
     var uploadFileDetails = reqBody.UploadFileDetails;
-    var selectedFiles = reqBody.SelectedFiles;
+    // var selectedFiles = reqBody.SelectedFiles;
     var filesArray = await JobCardMaster.findOne({
-        _id: selectedFiles._id
+        _id: cardId
     });
     filesArray.AssociatedFiles.forEach(function (file) {
         finalList.push(file);
@@ -124,9 +125,9 @@ var updateAssociatedFiles = async function (request, response) {
     uploadFileDetails.forEach(function (newFile) {
         finalList.push(newFile);
     })
-    console.log(finalList);
+  //  console.log(finalList);
     JobCardMaster.findByIdAndUpdate({
-        _id: selectedFiles._id
+        _id: cardId
     }, {
         AssociatedFiles: finalList
     }, function (err, docs) {

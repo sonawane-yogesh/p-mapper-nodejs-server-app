@@ -5,36 +5,47 @@ var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var {
-    SystemMember
+    UserMaster
 } = require('../model/index');
 
+// var emergencyContactSchema = new Schema({
+//     Name: {
+//         type: String,
+//         required: true
+//     },
+//     Email: {
+//         type: String,
+//         required: true
+//     },
+//     PhoneWork: {
+//         type: String,
+//         required: true
+//     },
+//     PhoneCell: {
+//         type: String,
+//         required: true
+//     },
+//     PhoneHome: {
+//         type: String,
+//         required: true
+//     },
+//     AlternatePhone: {
+//         type: String,
+//         required: true
+//     },
+//     ContactType: {
+//         type: String,
+//         required: true
+//     }
+// });
 var emergencyContactSchema = new Schema({
-    Name: {
-        type: String,
-        required: true
+    Id: {
+        type: mongoose.Types.ObjectId,
+        auto: true
     },
-    Email: {
+    ContactName: {
         type: String,
-        required: true
-    },
-    PhoneWork: {
-        type: String,
-        required: true
-    },
-    PhoneCell: {
-        type: String,
-        required: true
-    },
-    PhoneHome: {
-        type: String,
-        required: true
-    },
-    AlternatePhone: {
-        type: String,
-        required: true
-    },
-    ContactType: {
-        type: String,
+        default: null,
         required: true
     }
 });
@@ -78,7 +89,7 @@ var appCardSchema = new Schema({
     },
     EmergencyContacts: [{
         type: mongoose.Types.ObjectId,
-        ref: SystemMember
+        ref: UserMaster
     }],
     Tags: {
         type: [String],
@@ -87,22 +98,22 @@ var appCardSchema = new Schema({
     SystemOwner: {
         type: String,
         required: false,
-        default:""
+        default: ""
     },
     SystemManager: {
         type: String,
         required: false,
-        default:""
+        default: ""
     },
     BusinessManager: {
         type: String,
         required: false,
-        default:""
+        default: ""
     },
     BusinessOwner: {
         type: String,
         required: false,
-        default:""
+        default: ""
     },
     CreatedOn: {
         type: Date,
@@ -111,7 +122,7 @@ var appCardSchema = new Schema({
     CreatedBy: {
         type: mongoose.Types.ObjectId,
         required: false,
-        default:null
+        default: null
     },
     UpdatedOn: {
         type: Date,
@@ -119,24 +130,25 @@ var appCardSchema = new Schema({
     }
 });
 
-
-
 appCardSchema.pre("aggregate", function (next) {
     this.lookup({
         from: 'AppDependencies',
         localField: '_id',
         foreignField: 'AppId',
         as: 'Dependencies'
-    });
-    this.lookup({
-        from: 'SystemMember',
-        localField: "EmergencyContacts",
-        foreignField: '_id',
-        as: 'EmergencyContacts'
-    });
+    });   
     next();
 });
 
+/*
+appCardSchema.set('toJSON', {
+    virtuals: true
+});
+appCardSchema.set('toObject', {
+    virtuals: true,
+    getters: true
+});
+*/
 var EmergencyContacts = server.model('EmergencyContacts', emergencyContactSchema, 'EmergencyContacts');
 var ApplicationCardMaster = server.model('ApplicationCardMaster', appCardSchema, 'ApplicationCardMaster');
 module.exports = {

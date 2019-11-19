@@ -69,8 +69,7 @@ maintananceSchema.pre(["find", "findOne"], function (next) {
     next();
 });
 
-maintananceSchema.pre("aggregate", function (next) {
-    
+maintananceSchema.pre("aggregate", function (next) {    
     this.lookup({
         from: "UserMaster",
         foreignField: "_id",
@@ -89,8 +88,7 @@ maintananceSchema.pre("aggregate", function (next) {
         localField: "StakeholderTeam",
         as: "StakeholderTeam"
     });
-    this.lookup(appMasterVirtuals.value).unwind(appMasterVirtuals.path);
-    
+    this.lookup(appMasterVirtuals.value).unwind(appMasterVirtuals.path);    
     next();
 });
 

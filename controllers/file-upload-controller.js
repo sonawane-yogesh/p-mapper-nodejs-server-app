@@ -1,6 +1,7 @@
 var {
     Upload
 } = require("./multer-config");
+var path = require('path');
 
 var {
     jobAndAppFileProcessing

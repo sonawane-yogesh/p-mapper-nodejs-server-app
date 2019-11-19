@@ -37,19 +37,10 @@ var addApplicationCard = function (request, response) {
         response.status(500).send("Error occured!");
     });
 };
-var getAllApplicationCards = async function (request, response) {
-    var appAggregate = [{
-        $lookup: {
-            from: 'AppDependencies',
-            localField: '_id',
-            foreignField: 'AppId',
-            as: 'Dependencies'
-        }
-    }];
-    // var appCards = await ApplicationCardMaster.aggregate(appAggregate).exec();
+var getAllApplicationCards = async function (request, response) {   
     var appCards = await ApplicationCardMaster.aggregate().exec();
-    //var appCards = await ApplicationCardMaster.find();
     response.send(appCards);
+    //var appCards = await ApplicationCardMaster.find();
 };
 var getAppDependancies = async function (request, response) {
     var aggregate = [{
@@ -94,7 +85,7 @@ var updateApplicationCard = async function (request, response) {
 };
 var deleteAppCards = function (request, response) {
     var reqBody = request.body;
-    console.log(reqBody);
+    // zconsole.log(reqBody);
     reqBody.forEach(async function (index, value) {
         await ApplicationCardMaster.findByIdAndDelete({
             _id: index
@@ -129,4 +120,4 @@ module.exports = {
     updateApplicationCard,
     deleteAppCards,
     getAppCardById
-}
+};

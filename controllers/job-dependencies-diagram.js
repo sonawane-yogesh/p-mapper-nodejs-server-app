@@ -24,7 +24,6 @@ var getAllDepedencies = async function (request, response) {
     response.json(diagramData);
 };
 
-
 var getChilds = async function (jobId, parent, diagramData) {
     // Find childs...
     "use strict";

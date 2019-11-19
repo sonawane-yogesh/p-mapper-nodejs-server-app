@@ -1,6 +1,6 @@
 var demoRoutes = [
-    // ["api/home/get", "home-controller#status", "get"],
-    ['api/demo-controller/demo', 'demo-controller#demoFunc', 'get']
+    ['api/demo-controller/demo', 'demo-controller#demoFunc', 'get'],
+    ['api/demo-controller/count-cards', 'demo-controller#countCards', 'get']
 ];
 var userRoutes = [
     ['api/login-controller/check-user', 'login-controller#checkUserDetails', 'get'],
