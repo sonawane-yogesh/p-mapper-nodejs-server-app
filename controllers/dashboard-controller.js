@@ -7,22 +7,18 @@ var {
 
 module.exports.dashBoardCounts = async function (request, response) {
     var dashBoard = [];
-    await JobCardMaster.count().then((job) => {
-        dashBoard.push({
-            title: "Job Cards",
-            count: job
-        });
-    }).catch((err) => {
-        console.log(err);
+    var job = await JobCardMaster.count();
+    dashBoard.push({
+        title: "Job Cards",
+        count: job
     });
-    await ApplicationCardMaster.count().then((app) => {
-        dashBoard.push({
-            title: "Application Cards",
-            count: app
-        });
-    }).catch((err) => {
-        console.log(err);
+
+    var app = await ApplicationCardMaster.count();
+    dashBoard.push({
+        title: "Application Cards",
+        count: app
     });
+<<<<<<< HEAD
     await UserMaster.count().then((member) => {
         dashBoard.push({
             title: "Members",
@@ -30,6 +26,32 @@ module.exports.dashBoardCounts = async function (request, response) {
         });
     }).catch((err) => {
         console.log(err);
+=======
+
+    var user = await UserMaster.count();
+    dashBoard.push({
+        title: "Members",
+        count: user
+>>>>>>> 2f6f472b0fa007bf1032718c73268e68d6125af4
     });
     response.send(dashBoard);
+};
+
+module.exports.getDistinctApplication = async function (request, response) {
+    var application = [];
+    var result = await ApplicationCardMaster.aggregate([{
+        $group: {
+            _id: "$ServerName"
+        }
+    }]).exec();
+    for (let app of result) {
+        var appCount = await ApplicationCardMaster.count({
+            ServerName: app._id
+        });
+        application.push({
+            "ServerName": app._id,
+            "Count": appCount
+        });
+    }
+    response.send(application);
 }

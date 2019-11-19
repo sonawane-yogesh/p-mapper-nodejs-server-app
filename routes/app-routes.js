@@ -71,6 +71,7 @@ var technicalSkillRoutes = [
 ];
 var dashBoardRoutes = [
     ["api/dashboard-controller/dashBoard-Counts", "dashboard-controller#dashBoardCounts", 'get'],
+    ["api/dashboard-controller/get-Distinct-Application", "dashboard-controller#getDistinctApplication", 'get'],
 ]
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes,
