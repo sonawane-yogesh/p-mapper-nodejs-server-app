@@ -67,10 +67,13 @@ var contactTypeRoutes = [
 
 var technicalSkillRoutes = [
     ["api/technical-skill-controller/add-skill", "technical-skill-controller#addSkill", 'post'],
-    ["api/technical-skill-controller/get-skills", "technical-skill-controller#getSkills", 'get']
+    ["api/technical-skill-controller/get-skills", "technical-skill-controller#getSkills", 'get'],
 ];
+var dashBoardRoutes = [
+    ["api/dashboard-controller/dashBoard-Counts", "dashboard-controller#dashBoardCounts", 'get'],
+]
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes,
     systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes,
-    technicalSkillRoutes);
+    technicalSkillRoutes, dashBoardRoutes);
 module.exports = appRoutes;
