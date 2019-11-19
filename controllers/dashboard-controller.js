@@ -1,6 +1,6 @@
 var {
     JobCardMaster,
-    MemberReviewMaster,
+    UserMaster,
     ApplicationCardMaster
 } = require("../model/index");
 
@@ -23,7 +23,7 @@ module.exports.dashBoardCounts = async function (request, response) {
     }).catch((err) => {
         console.log(err);
     });
-    await MemberReviewMaster.count().then((member) => {
+    await UserMaster.count().then((member) => {
         dashBoard.push({
             title: "Members",
             count: member

@@ -37,10 +37,10 @@ var addApplicationCard = function (request, response) {
         response.status(500).send("Error occured!");
     });
 };
-var getAllApplicationCards = async function (request, response) {   
-    var appCards = await ApplicationCardMaster.aggregate().exec();
-    response.send(appCards);
+var getAllApplicationCards = async function (request, response) {
     //var appCards = await ApplicationCardMaster.find();
+       var appCards = await ApplicationCardMaster.aggregate().exec();
+    response.send(appCards);
 };
 var getAppDependancies = async function (request, response) {
     var aggregate = [{

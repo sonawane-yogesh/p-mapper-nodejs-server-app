@@ -136,7 +136,13 @@ appCardSchema.pre("aggregate", function (next) {
         localField: '_id',
         foreignField: 'AppId',
         as: 'Dependencies'
-    });   
+    });
+    this.lookup({
+        from: 'UserMaster',
+        localField: "EmergencyContacts",
+        foreignField: "_id",
+        as: "UserMaster"
+    });
     next();
 });
 
