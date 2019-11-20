@@ -53,7 +53,6 @@ var getUserDetails = async function (request, response) {
 };
 
 var aggUserMaster = async function (request, response) {
-    //  var users = await UserMaster.aggregate().exec();
     var users = await UserMaster.aggregate().exec();
     response.json(users);
 };

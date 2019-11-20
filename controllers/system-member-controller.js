@@ -58,6 +58,7 @@ var getAllMembers = async function (request, response) {
 
 var getAllUserMembers = async function (request, response) {
     var result = await UserMaster.find({});
+    // var result = await UserMaster.aggregate().exec();
     response.send(result);
 };
 var getMembers = async function (request, response) {

@@ -102,7 +102,16 @@ userSchema.pre("aggregate", function (next) {
     var userMaster = this;
     userMaster.lookup(roleVirtuals.value).unwind(roleVirtuals.path);
     userMaster.lookup(contactTypeVirtuals.value).unwind(contactTypeVirtuals.path);
-    userMaster.lookup(userMasterVirtuals.value).unwind(userMasterVirtuals.path); // .lookup(userMasterVirtuals.value).unwind(userMasterVirtuals.path);
+    userMaster.lookup(userMasterVirtuals.value).unwind({
+        path: `$${userMasterVirtuals.path}`,
+        preserveNullAndEmptyArrays: true
+    }).lookup({
+        from: "ContactTypeMaster",
+        localField: "UserMaster.ContactTypeId",
+        foreignField: "_id",
+        as: "UserMaster.ContactTypeMaster"
+    }).unwind("UserMaster.ContactTypeMaster"); // .lookup(userMasterVirtuals.value).unwind(userMasterVirtuals.path);
+
     next();
 });
 
