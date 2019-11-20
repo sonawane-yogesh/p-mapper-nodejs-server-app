@@ -1,5 +1,6 @@
 var {
-    MaintenanceActivity, MaintanaceChangePhase
+    MaintenanceActivity,
+    MaintanaceChangePhase
 } = require("../model/index");
 
 var aggAll = async function (req, res) {
@@ -51,15 +52,22 @@ var updateActivity = function (request, response) {
     });
 };
 
-var getMaintanaceChangePhase = function (request, response){
+var getMaintanaceChangePhase = function (request, response) {
     var body = request.body;
     console.log(body);
-}
+};
 
+var getChangePhasesById = async function (request, response) {
+    var res = await MaintanaceChangePhase.find({
+        MaintanaceActivityId: id
+    });
+    response.send(res)
+};
 module.exports = {
     addActivity,
     aggAll,
     getActivities,
     updateActivity,
-    getMaintanaceChangePhase
+    getMaintanaceChangePhase,
+    getChangePhasesById
 };

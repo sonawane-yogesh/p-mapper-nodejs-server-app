@@ -42,7 +42,7 @@ var systemMemberRoutes = [
     ['api/system-member-controller/get-user-members', 'system-member-controller#getAllUserMembers', 'get'],
     ['api/maintanance-activity-controller/get-all-activities', 'maintanance-activity-controller#getActivities', 'get'],
     ['api/maintanance-activity-controller/update-activity', 'maintanance-activity-controller#updateActivity', 'post'],
-    ['api/maintanance-activity-controller/get-Maintanace-Change-Phase', 'maintanance-activity-controller#getMaintanaceChangePhase', 'post'],
+    ['api/maintanance-activity-controller/get-Maintanace-Change-Phase', 'maintanance-activity-controller#getMaintanaceChangePhase', 'post']
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],

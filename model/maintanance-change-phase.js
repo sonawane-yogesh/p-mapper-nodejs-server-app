@@ -1,14 +1,18 @@
-var { dbServer } = require('../db/db-config');
+var {
+    dbServer
+} = require('../db/db-config');
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var {MaintenanceActivity} = require("./index");
+var {
+    MaintenanceActivity
+} = require("./index");
 
 var maintanaceChangePhaseSchema = new Schema({
-     MaintanaceActivityId :{
-         type: mongoose.Types.ObjectId       
-     },
-     CreatedOn: {
+    MaintanaceActivityId: {
+        type: mongoose.Types.ObjectId
+    },
+    CreatedOn: {
         type: Date,
         default: Date.now
     },
@@ -21,7 +25,7 @@ var maintanaceChangePhaseSchema = new Schema({
         type: Date,
         default: Date.now
     },
-     CurrentPhase: {
+    CurrentPhase: {
         type: String,
         required: true
     },
@@ -41,16 +45,15 @@ var maintanaceActivityVirtuals = {
 maintanaceChangePhaseSchema.virtual(maintanaceActivityVirtuals.path, maintanaceActivityVirtuals.value);
 
 maintanaceChangePhaseSchema.pre(["find", "findOne"], function (next) {
-    var mSchema = this;    
+    var mSchema = this;
     mSchema.populate(maintanaceActivityVirtuals.path, maintanaceActivityVirtuals.fields, MaintenanceActivity);
-    
+
     next();
 });
 
 maintanaceChangePhaseSchema.pre("aggregate", function (next) {
     var userMaster = this;
     userMaster.lookup(maintanaceActivityVirtuals.value).unwind(maintanaceActivityVirtuals.path);
-    
     next();
 });
 
@@ -65,4 +68,4 @@ maintanaceChangePhaseSchema.set('toObject', {
 var MaintanaceChangePhase = server.model("MaintanaceChangePhase", maintanaceChangePhaseSchema, "MaintanaceChangePhase")
 module.exports = {
     MaintanaceChangePhase
-}
+};
