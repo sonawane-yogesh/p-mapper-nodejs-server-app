@@ -70,8 +70,7 @@ var getMaintanaceChangePhase = async function (request, response) {
         .exec();
     response.send(changePhase);
 };
- 
-// This is for getting Manitanace Activity Change phase
+
 var getChangePhaseById = async function (request, response) {
     var id = new mongoose.Types.ObjectId(request.query.id);
     var changePhase = await MaintanaceChangePhase.aggregate([{
@@ -84,7 +83,6 @@ var getChangePhaseById = async function (request, response) {
     .exec();
     response.json(changePhase);
 };
-
 module.exports = {
     addActivity,
     aggAll,
@@ -92,4 +90,5 @@ module.exports = {
     updateActivity,
     getMaintanaceChangePhase,
     getChangePhaseById
+
 };

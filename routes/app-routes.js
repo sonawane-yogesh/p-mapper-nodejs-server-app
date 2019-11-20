@@ -43,7 +43,8 @@ var systemMemberRoutes = [
     ['api/maintanance-activity-controller/get-all-activities', 'maintanance-activity-controller#getActivities', 'get'],
     ['api/maintanance-activity-controller/update-activity', 'maintanance-activity-controller#updateActivity', 'post'],
     ['api/maintanance-activity-controller/get-Maintanace-Change-Phase', 'maintanance-activity-controller#getMaintanaceChangePhase', 'post'],
-    ['api/maintanance-activity-controller/get-change-phase-by-id', 'maintanance-activity-controller#getChangePhaseById', 'get']
+    ['api/maintanance-activity-controller/get-change-phase-by-id', 'maintanance-activity-controller#getChangePhaseById', 'get'],
+
 ];
 var testRoutes = [
     ['api/card-dependencies/getAllDepedencies', 'card-dependencies#getAllDepedencies', 'get'],

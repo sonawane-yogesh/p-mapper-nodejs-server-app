@@ -10,6 +10,7 @@ var {
     ApplicationCardMaster
 } = require("./index");
 
+// // This is for  Manitanace Activity Change phase
 var maintanaceChangePhaseSchema = new Schema({
     MaintanaceActivityId: {
         type: mongoose.Types.ObjectId
