@@ -45,6 +45,7 @@ var {
     TechnicalSkillMaster
 } = require("./technical-skill");
 
+var {MaintanaceChangePhase} = require("./maintanance-change-phase");
 module.exports = {
     JobDependencies,
     AppDependencies,
@@ -62,5 +63,6 @@ module.exports = {
     MemberReviewMaster,
     RoleMaster,
     ContactTypeMaster,
-    TechnicalSkillMaster
+    TechnicalSkillMaster,
+    MaintanaceChangePhase
 }

@@ -44,6 +44,19 @@ var maintananceSchema = new Schema({
     },
     ApplicationId: {
         type: mongoose.Types.ObjectId
+    },
+    CreatedOn: {
+        type: Date,
+        default: Date.now
+    },
+    CreatedBy: {
+        type: mongoose.Types.ObjectId,
+        required: false,
+        default: null
+    },
+    UpdatedOn: {
+        type: Date,
+        default: Date.now
     }
 });
 

@@ -1,5 +1,5 @@
 var {
-    MaintenanceActivity
+    MaintenanceActivity, MaintanaceChangePhase
 } = require("../model/index");
 
 var aggAll = async function (req, res) {
@@ -27,7 +27,11 @@ var getActivities = async function (request, response) {
 var updateActivity = function (request, response) {
     var reqBody = request.body;
     id = reqBody.id;
-
+    var mainChangePhase = {
+        MaintanaceActivityId: id,
+        CreatedBy: reqBody.CreatedBy,
+        CurrentPhase: reqBody.CurrentPhase
+    }
     MaintenanceActivity.findByIdAndUpdate({
         _id: id
     }, reqBody, {
@@ -37,13 +41,25 @@ var updateActivity = function (request, response) {
         if (err) {
             response.status(500).send('Error While Updating Card')
         } else {
+            MaintanaceChangePhase.create(mainChangePhase).then((d) => {
+                console.log(d);
+            }).catch((err) => {
+                console.log(err);
+            });
             response.send(doc);
         }
     });
 };
+
+var getMaintanaceChangePhase = function (request, response){
+    var body = request.body;
+    console.log(body);
+}
+
 module.exports = {
     addActivity,
     aggAll,
     getActivities,
-    updateActivity
+    updateActivity,
+    getMaintanaceChangePhase
 };
