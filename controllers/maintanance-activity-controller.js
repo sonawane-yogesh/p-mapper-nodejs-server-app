@@ -35,7 +35,7 @@ var updateActivity = function (request, response) {
     id = reqBody.id;
     var mainChangePhase = {
         MaintanaceActivityId: id,
-        CreatedBy: reqBody.CreatedBy,
+        CreatedBy: reqBody.UpdatedBy,
         CurrentPhase: reqBody.CurrentPhase,
         ImpactedApps: reqBody.ImpactedApps,
         DevelopmentTeam: reqBody.DevelopmentTeam,
@@ -64,6 +64,8 @@ var getMaintanaceChangePhase = async function (request, response) {
     var body = request.body;
     // var maintanaceChangePhase = [];
     let arr = body.map(ele => new mongoose.Types.ObjectId(ele.ProjectId));
+    // var changePhase = await MaintanaceChangePhase.where("MaintanaceActivityId").in(arr);
+
     var changePhase = await MaintanaceChangePhase.aggregate([{
             $match: {
                 "MaintanaceActivityId": {
@@ -72,6 +74,7 @@ var getMaintanaceChangePhase = async function (request, response) {
             }
         }])
         .exec();
+
     response.send(changePhase);
 };
 
