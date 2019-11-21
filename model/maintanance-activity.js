@@ -54,9 +54,34 @@ var maintananceSchema = new Schema({
         required: false,
         default: null
     },
+    UpdatedBy: {
+        type: mongoose.Types.ObjectId,
+        required: false,
+        default: null
+    },
     UpdatedOn: {
         type: Date,
         default: Date.now
+    },
+    Accomplishments: {
+        type: String,
+        required: false,
+    },
+    NextSteps: {
+        type: String,
+        required: false,
+    },
+    RisksAndMitigation: {
+        type: String,
+        required: false,
+    },
+    Issues: {
+        type: String,
+        required: false,
+    },
+    ActionItems: {
+        type: String,
+        required: false,
     }
 });
 
