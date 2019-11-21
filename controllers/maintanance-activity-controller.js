@@ -2,7 +2,7 @@ var {
     MaintenanceActivity,
     MaintanaceChangePhase
 } = require("../model/index");
- var mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
 var aggAll = async function (req, res) {
     // var r = await MaintenanceActivity.find();
@@ -31,7 +31,7 @@ var updateActivity = function (request, response) {
     id = reqBody.id;
     var mainChangePhase = {
         MaintanaceActivityId: id,
-        CreatedBy: reqBody.CreatedBy,
+        CreatedBy: reqBody.UpdatedBy,
         CurrentPhase: reqBody.CurrentPhase,
         ImpactedApps: reqBody.ImpactedApps,
         DevelopmentTeam: reqBody.DevelopmentTeam,
@@ -60,6 +60,8 @@ var getMaintanaceChangePhase = async function (request, response) {
     var body = request.body;
     // var maintanaceChangePhase = [];
     let arr = body.map(ele => new mongoose.Types.ObjectId(ele.ProjectId));
+    // var changePhase = await MaintanaceChangePhase.where("MaintanaceActivityId").in(arr);
+
     var changePhase = await MaintanaceChangePhase.aggregate([{
             $match: {
                 "MaintanaceActivityId": {
@@ -68,19 +70,20 @@ var getMaintanaceChangePhase = async function (request, response) {
             }
         }])
         .exec();
+
     response.send(changePhase);
 };
 
 var getChangePhaseById = async function (request, response) {
     var id = new mongoose.Types.ObjectId(request.query.id);
     var changePhase = await MaintanaceChangePhase.aggregate([{
-        $match: {
-            "_id": {
-                $in: [id]
+            $match: {
+                "_id": {
+                    $in: [id]
+                }
             }
-        }
-    }])
-    .exec();
+        }])
+        .exec();
     response.json(changePhase);
 };
 module.exports = {
@@ -91,5 +94,4 @@ module.exports = {
     getMaintanaceChangePhase,
     getChangePhaseById
 
-};          
-      
+};
