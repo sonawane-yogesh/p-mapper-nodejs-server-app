@@ -80,7 +80,7 @@ var goalsMasterSchema = new Schema({
         type: Date,
         default: Date.now,
         required: false
-    }
+    }   
 });
 
 var technicalSkillSchema = new Schema({
