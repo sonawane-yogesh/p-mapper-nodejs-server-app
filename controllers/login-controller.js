@@ -57,10 +57,26 @@ var aggUserMaster = async function (request, response) {
     response.json(users);
 };
 
+var getUserByName = function (request, response) {
+    var reqBody = request.body;
+    UserMaster.findOne({
+        Username: reqBody.Username,
+        Password: reqBody.Password
+    }).then((user) => {
+        if (!user) {
+            response.status(400).send("User Not Found!");
+        } else {
+            response.status(200).json(user);
+        }
+    }).catch((err) => {
+        response.status(500).send("Internal Server Error");
+    });
+}
 module.exports = {
     checkUserDetails,
     addUserDetails,
     getUserDetails,
     updateUserDetails,
-    aggUserMaster
+    aggUserMaster,
+    getUserByName
 };

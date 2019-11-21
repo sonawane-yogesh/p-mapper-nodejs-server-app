@@ -46,4 +46,4 @@ module.exports.getDistinctApplication = async function (request, response) {
         });
     }
     response.send(application);
-}
+};

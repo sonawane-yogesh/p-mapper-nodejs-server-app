@@ -6,7 +6,8 @@ var userRoutes = [
     ['api/login-controller/add-user', 'login-controller#addUserDetails', 'post'],
     ['api/login-controller/update-user', 'login-controller#updateUserDetails', 'post'],
     ['api/login-controller/get-users', 'login-controller#getUserDetails', 'get'],
-    ['api/login-controller/agg-user-master', 'login-controller#aggUserMaster', 'get']
+    ['api/login-controller/agg-user-master', 'login-controller#aggUserMaster', 'get'],
+    ['api/login-controller/get-user-by-name', 'login-controller#getUserByName', 'post'],
 ];
 var jobRoutes = [
     ['api/job-card-controller/add-job', 'job-card-controller#addJobCard', 'post'],
