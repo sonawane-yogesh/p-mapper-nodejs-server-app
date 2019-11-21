@@ -62,6 +62,7 @@ var getAllUserMembers = async function (request, response) {
     response.send(result);
 };
 var getMembers = async function (request, response) {
+    var id = new mongoose.Types.ObjectId(request.query.id);
     var members = await SystemMember.find();
     var memberList = [];
     members.forEach((m) => {
@@ -92,12 +93,13 @@ var getMembers = async function (request, response) {
         });
     });
     var roots = userList.filter((m) => {
-        return m.ReportTo === 0 || m.ReportTo === null;
+        return m.ReportTo === 0 || m.ReportTo === null || m._id === id;
     });
     var nonMembers = userList.filter((m) => {
         return m.ReportTo !== 0 && m.ReportTo !== null;
     });
     var treeData = prepareRootChilds(roots, nonMembers);
+    // return treeData;
     response.send(treeData);
 };
 

@@ -1,9 +1,10 @@
 var {
     JobCardMaster,
     UserMaster,
-    ApplicationCardMaster
+    ApplicationCardMaster,
+    MaintenanceActivity
 } = require("../model/index");
-
+var mongoose = require("mongoose");
 
 module.exports.dashBoardCounts = async function (request, response) {
     var dashBoard = [];
@@ -37,7 +38,7 @@ module.exports.getDistinctApplication = async function (request, response) {
         }
     }]).exec();
     for (let app of result) {
-        var appCount = await ApplicationCardMaster.count({
+        var appCount = await ApplicationCardMaster.countDocuments({
             ServerName: app._id
         });
         application.push({
@@ -46,4 +47,33 @@ module.exports.getDistinctApplication = async function (request, response) {
         });
     }
     response.send(application);
+};
+
+module.exports.getRoleBasedApps = async function (request, response) {
+    var userId = new mongoose.Types.ObjectId(request.query.id);
+    var members = await UserMaster.find({
+        $or: [{
+            _id: userId
+        }, {
+            ReportToId: userId
+        }]
+    }).exec();
+    var id = members.map(m => m._id);
+    var projects = await MaintenanceActivity.aggregate([{
+        $match: {
+            $or: [{
+                CreatedBy: id
+            }, {
+                DevelopmentTeam: {
+                    $in: id
+                }
+            }, {
+                StakeholderTeam: {
+                    $in: id
+                }
+            }]
+        }
+    }]).exec();
+
+    response.send(projects);
 };

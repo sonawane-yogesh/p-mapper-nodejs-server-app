@@ -2,7 +2,7 @@ var {
     MaintenanceActivity,
     MaintanaceChangePhase
 } = require("../model/index");
- var mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
 var aggAll = async function (req, res) {
     // var r = await MaintenanceActivity.find();
@@ -22,7 +22,11 @@ var addActivity = function (request, response) {
 };
 
 var getActivities = async function (request, response) {
-    var res = await MaintenanceActivity.find();
+    var res = await MaintenanceActivity.find({
+        CurrentPhase: {
+            $in: ["Execution", "Planning"]
+        }
+    });
     response.send(res);
 };
 
@@ -74,13 +78,13 @@ var getMaintanaceChangePhase = async function (request, response) {
 var getChangePhaseById = async function (request, response) {
     var id = new mongoose.Types.ObjectId(request.query.id);
     var changePhase = await MaintanaceChangePhase.aggregate([{
-        $match: {
-            "_id": {
-                $in: [id]
+            $match: {
+                "_id": {
+                    $in: [id]
+                }
             }
-        }
-    }])
-    .exec();
+        }])
+        .exec();
     response.json(changePhase);
 };
 module.exports = {
@@ -91,5 +95,4 @@ module.exports = {
     getMaintanaceChangePhase,
     getChangePhaseById
 
-};          
-      
+};
