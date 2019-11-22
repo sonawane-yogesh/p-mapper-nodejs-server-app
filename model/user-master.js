@@ -3,6 +3,8 @@ var {
 } = require('../db/db-config');
 var server = dbServer();
 var mongoose = require('mongoose');
+var validator = require('validator');
+var bcrypt = require('bcryptjs');
 var Schema = mongoose.Schema;
 var {
     RoleMaster
@@ -16,6 +18,7 @@ var {
 var userSchema = new Schema({
     FirstName: {
         type: String
+
     },
     LastName: {
         type: String
@@ -27,7 +30,7 @@ var userSchema = new Schema({
         type: String
     },
     ContactNo: {
-        type: Number
+        type: String
     },
     EmailId: {
         type: String
@@ -42,7 +45,8 @@ var userSchema = new Schema({
     },
     ReportToId: {
         type: mongoose.Types.ObjectId,
-        required: true
+        required: false,
+        default: null
     }
 });
 
@@ -95,6 +99,30 @@ const findHook = function (next) {
     userMaster.populate(userMasterVirtuals.path, userMasterVirtuals.fields);
     next();
 };
+
+// method to login by credentials
+userSchema.statics.findByCredentials = async function (username, pwd) {
+    const user = await UserMaster.findOne({
+        Username: username
+    });
+    if (!user) {
+        throw new Error('Unable to login');
+    };
+    const isMatch = await bcrypt.compare(pwd, user.Password);
+    if (!isMatch) {
+        throw new Error('Unable to login');
+    };
+    return user;
+};
+
+// hash pwd before saving 
+userSchema.pre("save", async function (next) {
+    var user = this;
+    if (user.isModified('Password')) {
+        user.Password = await bcrypt.hash(user.Password, 8);
+    }
+    next();
+});
 
 userSchema.pre(["find", "findOne"], findHook);
 

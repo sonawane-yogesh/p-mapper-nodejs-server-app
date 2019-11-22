@@ -7,7 +7,8 @@ var userRoutes = [
     ['api/login-controller/update-user', 'login-controller#updateUserDetails', 'post'],
     ['api/login-controller/get-users', 'login-controller#getUserDetails', 'get'],
     ['api/login-controller/agg-user-master', 'login-controller#aggUserMaster', 'get'],
-    ['api/login-controller/get-user-by-name', 'login-controller#getUserByName', 'post'],
+    ['api/login-controller/login', 'login-controller#getUserByName', 'post'],
+    ['api/login-controller/check-existing-user', 'login-controller#checkExisingUser', 'get']
 ];
 var jobRoutes = [
     ['api/job-card-controller/add-job', 'job-card-controller#addJobCard', 'post'],
@@ -84,5 +85,3 @@ var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applic
     systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes,
     technicalSkillRoutes, dashBoardRoutes);
 module.exports = appRoutes;
-
-

@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -27,7 +28,8 @@
     "node-csv": "^0.1.2",
     "node-xlsx": "^0.15.0",
     "pdf-parse": "^1.1.1",
-    "pdfreader": "^1.0.4"
+    "pdfreader": "^1.0.4",
+    "validator": "^12.1.0"
   },
   "devDependencies": {
     "axios": "^0.19.0",
