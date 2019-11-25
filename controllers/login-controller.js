@@ -69,32 +69,31 @@ var aggUserMaster = async function (request, response) {
 
 var getUserByName = async function (request, response) {
     var reqBody = request.body;
-    // this will work for login with hashed pwd
+
     try {
         const user = await UserMaster.findByCredentials(reqBody.Username, reqBody.Password);
         response.send(user);
     } catch (e) {
         response.status(400).send(e.message);
     };
+};
 
-
-    /*
-    this will work for login with plain pwd
-
-        UserMaster.findOne({
-            Username: reqBody.Username,
-            Password: reqBody.Password
-        }).then((user) => {
-            if (!user) {
-                response.status(400).send("User Not Found!");
-            } else {
-                response.status(200).json(user);
-            }
-        }).catch((err) => {
-            response.status(500).send("Internal Server Error");
+var updatePassword = async function (request, response) {
+    var reqBody = request.body;
+    try {
+        var user = await UserMaster.findOne({
+            Username: reqBody.Username
         });
-    */
-}
+        user.Password = reqBody.Password
+        await user.save();
+        if (!user) {
+            response.status(400).send();
+        }
+        response.send("Password Updated Successfully");
+    } catch (e) {
+        response.status(400).send(e.message);
+    }
+};
 module.exports = {
     checkUserDetails,
     addUserDetails,
@@ -102,5 +101,6 @@ module.exports = {
     updateUserDetails,
     aggUserMaster,
     getUserByName,
-    checkExisingUser
+    checkExisingUser,
+    updatePassword
 };

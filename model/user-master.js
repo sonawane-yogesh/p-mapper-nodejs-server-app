@@ -18,13 +18,14 @@ var {
 var userSchema = new Schema({
     FirstName: {
         type: String
-
     },
     LastName: {
         type: String
     },
     Username: {
-        type: String
+        type: String,
+        trim: true,
+        lowercase: true
     },
     Password: {
         type: String

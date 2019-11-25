@@ -8,7 +8,8 @@ var userRoutes = [
     ['api/login-controller/get-users', 'login-controller#getUserDetails', 'get'],
     ['api/login-controller/agg-user-master', 'login-controller#aggUserMaster', 'get'],
     ['api/login-controller/login', 'login-controller#getUserByName', 'post'],
-    ['api/login-controller/check-existing-user', 'login-controller#checkExisingUser', 'get']
+    ['api/login-controller/check-existing-user', 'login-controller#checkExisingUser', 'get'],
+    ['api/login-controller/change-password', 'login-controller#updatePassword', 'post']
 ];
 var jobRoutes = [
     ['api/job-card-controller/add-job', 'job-card-controller#addJobCard', 'post'],
