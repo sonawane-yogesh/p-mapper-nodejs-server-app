@@ -101,7 +101,7 @@ const findHook = function (next) {
     next();
 };
 
-// method to login by credentials
+//  static method to login by credentials
 userSchema.statics.findByCredentials = async function (username, pwd) {
     const user = await UserMaster.findOne({
         Username: username
