@@ -11,6 +11,13 @@ var roleMasterSchema = new Schema({
         required: true
     }
 });
+roleMasterSchema.set('toJSON', {
+    virtuals: true
+});
+roleMasterSchema.set('toObject', {
+    virtuals: true,
+    getters: true
+});
 
 module.exports.RoleMasterSchema = roleMasterSchema
 var RoleMaster = server.model("RoleMaster", roleMasterSchema, "RoleMaster");

@@ -19,6 +19,8 @@ var getAllRole = function(request, response){
     });
 }
  
+
+
 module.exports = {
     addRole,
     getAllRole

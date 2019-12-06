@@ -12,7 +12,8 @@ var {
     ApplicationCardMaster
 } = require('../model/application-card');
 var {
-    UserMaster, UserMasterSchema
+    UserMaster,
+    UserMasterSchema
 } = require('../model/user-master');
 var {
     FileTextContent
@@ -45,7 +46,22 @@ var {
     TechnicalSkillMaster
 } = require("./technical-skill");
 
-var {MaintanaceChangePhase} = require("./maintanance-change-phase");
+var {
+    MaintanaceChangePhase
+} = require("./maintanance-change-phase");
+
+var {
+    MainMenuMaster
+} = require("./main-menu-master");
+
+var {
+    SubMenuMaster
+} = require("./sub-menu-master");
+
+var {
+    RoleWiseMenuMaster
+} = require("./role-wise-menu-master");
+
 module.exports = {
     JobDependencies,
     AppDependencies,
@@ -64,5 +80,8 @@ module.exports = {
     RoleMaster,
     ContactTypeMaster,
     TechnicalSkillMaster,
-    MaintanaceChangePhase
+    MaintanaceChangePhase,
+    MainMenuMaster,
+    SubMenuMaster,
+    RoleWiseMenuMaster
 }
