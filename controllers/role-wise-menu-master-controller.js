@@ -15,22 +15,24 @@ var addRoleMenu = async function (request, response) {
   };
   var roleResult = await addRole(role);
   for (aRole of assignRoles) {
-    aRole.RoleId = roleResult.id;   
-    RoleWiseMenuMaster.create(aRole);
+    aRole.RoleId = roleResult.id;
+    await RoleWiseMenuMaster.create(aRole);
   }
+  response.send();
 }
 
-var updateRoleMenu = function (request, response) {
+var updateRoleMenu = async function (request, response) {
   var body = request.body;
   var assignRoles = body.selectedRoles;
   var roleId = body.roleId;
-  var deleteRole = RoleWiseMenuMaster.deleteMany({
+  await RoleWiseMenuMaster.deleteMany({
     RoleId: roleId
-  }, function (err) {});  
+  });
   for (aRole of assignRoles) {
-    aRole.RoleId = roleId;   
-    RoleWiseMenuMaster.create(aRole);
+    aRole.RoleId = roleId;
+    await RoleWiseMenuMaster.create(aRole);
   }
+  response.send();
 }
 
 var getAllRoleMenu = function (request, response) {
@@ -49,9 +51,9 @@ var getRoleMenuByRoleId = async function (request, response) {
   var roleData = await RoleWiseMenuMaster.find({
     RoleId: mongoose.Types.ObjectId(roleId)
   });
-  
+
   for (role of roleData) {
-    var toObject = role.toObject();   
+    var toObject = role.toObject();
     var mainMenuId = toObject.MainMenuId.toString();
     mainIds.push(mainMenuId);
   }
@@ -66,9 +68,9 @@ var getRoleMenuByRoleId = async function (request, response) {
       MainMenuId: mainMenu.MainMenuId,
       SubMenu: subMenu
     };
-    mainlist.push(roleMenu);    
+    mainlist.push(roleMenu);
   }
-  
+
   response.json(mainlist);
 }
 
@@ -141,7 +143,7 @@ var getRoleMenuById = async function (request, response) {
       MainMenu: mainMenu,
       SubMenu: subList
     };
-    mainlist.push(roleMenu);  
+    mainlist.push(roleMenu);
   }
   response.send(mainlist);
 }
