@@ -128,10 +128,7 @@ var jobMasterDependecies = async function (jobId, applicationId, diagramData) {
     
     var parentLink = prepareLink(applicationId, jobCardMaster._id.toString(), jobCardMaster.JobTitle, "red");
     diagramData.Links.push(parentLink);
-    /*
-    await getParents(id, jobNode, diagramData);
-    await getChilds(id, jobNode, diagramData);
-    */
+       
    return diagramData;
 }
 
