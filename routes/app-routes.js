@@ -101,9 +101,14 @@ var roleWiseMenuMaster = [
     ["api/role-wise-menu-master-controller/get-sub-Menu", "role-wise-menu-master-controller#getAllSubRoleMenu", 'get'],
     ["api/role-wise-menu-master-controller/get-role-menu-by-id", "role-wise-menu-master-controller#getRoleMenuById", 'get'],
     ["api/role-wise-menu-master-controller/update-rolemenu", "role-wise-menu-master-controller#updateRoleMenu", 'post']
+];
+
+var incidentRoutes = [
+    ["api/incident-controller/add-incident", "incident-controller#addIncident", "post"],
+    ["api/incident-controller/get-incidents", "incident-controller#getIncidents", "get"]
 ]
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes,
     systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes,
-    technicalSkillRoutes, dashBoardRoutes, mainMenuMaster, subMenuMaster, roleWiseMenuMaster);
+    technicalSkillRoutes, dashBoardRoutes, mainMenuMaster, subMenuMaster, roleWiseMenuMaster, incidentRoutes);
 module.exports = appRoutes;
