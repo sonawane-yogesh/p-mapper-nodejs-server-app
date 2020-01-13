@@ -1,6 +1,7 @@
 var {
     AppDependencies,
-    ApplicationCardMaster
+    ApplicationCardMaster,
+    JobCardMaster
 } = require("../model");
 var mongoose = require("mongoose");
 
@@ -14,8 +15,13 @@ exports.getAppDependencies = async function (request, response) {
     var id = request.query.id;
     var diagramData = {
         Nodes: [],
-        Links: []
+        Links: [],
+        Legends:[]
     }
+    diagramData.Legends.push({"title": "SelectApp", "bgColor": "#90ee90"});
+    diagramData.Legends.push({"title": "DependsOn", "bgColor": "#ADD8E6"});
+    diagramData.Legends.push({"title": "JobCards", "bgColor": "#28a745"});
+
     var applicationCard = await ApplicationCardMaster.findOne({
         _id: mongoose.Types.ObjectId(id)
     });
@@ -23,7 +29,14 @@ exports.getAppDependencies = async function (request, response) {
     diagramData.Nodes.push(appNode);
     await getParents(id, appNode, diagramData);
     await getChilds(id, appNode, diagramData);
-   // console.log(diagramData);
+    var toObject = applicationCard.toObject();
+    var jobCardsData = toObject.JobCards;
+    for (let j of jobCardsData) {        
+        await jobMasterDependecies(j ,applicationCard._id.toString(), diagramData);
+    }
+
+    
+   
     response.send(diagramData);
 };
 
@@ -37,7 +50,7 @@ var getChilds = async function (appId, parent, diagramData) {
     for (let a of appDependencies) {
         var toObject = a.toObject();
         var applicationCard = toObject.ApplicationCardMaster;
-       // console.log(applicationCard);
+        // console.log(applicationCard);
         var childNode = prepareNode(applicationCard._id.toString(), applicationCard.AppTitle, "#ADD8E6", "RoundRect", applicationCard.ServerName, parent.GroupId);
         var existingNode = diagramData.Nodes.find(function (e) {
             return e.Id === childNode.Id;
@@ -104,6 +117,23 @@ var prepareLink = function (origin, target, linkText, lineColor) {
     }
     return linkObj;
 };
+
+
+var jobMasterDependecies = async function (jobId, applicationId, diagramData) {
+    var jobCardMaster = await JobCardMaster.findOne({
+        _id: mongoose.Types.ObjectId(jobId)
+    });
+    var jobNode = prepareNode(jobCardMaster._id.toString(), jobCardMaster.JobTitle, "#28a745", "RoundRect");
+    diagramData.Nodes.push(jobNode);
+    
+    var parentLink = prepareLink(applicationId, jobCardMaster._id.toString(), jobCardMaster.JobTitle, "red");
+    diagramData.Links.push(parentLink);
+    /*
+    await getParents(id, jobNode, diagramData);
+    await getChilds(id, jobNode, diagramData);
+    */
+   return diagramData;
+}
 
 /*
 module.exports = {
