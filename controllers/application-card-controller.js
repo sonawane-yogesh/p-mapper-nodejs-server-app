@@ -7,6 +7,7 @@ var addApplicationCard = function (request, response) {
     var reqBody = request.body;
     var dependencies = reqBody.Dependancy;
     var contacts = reqBody.EmergencyContacts;
+    var jobCards = reqBody.JobCards;
     var applicationCardData = new ApplicationCardMaster({
         AppTitle: reqBody.AppTitle,
         BusinessPurpose: reqBody.BusinessPurpose,
@@ -23,7 +24,8 @@ var addApplicationCard = function (request, response) {
         BusinessOwner: reqBody.BusinessOwner,
         SystemManager: reqBody.SystemManager,
         BusinessManager: reqBody.BusinessManager,
-        CreatedBy: reqBody.CreatedBy
+        CreatedBy: reqBody.CreatedBy,
+        JobCards: reqBody.JobCards
     });
     applicationCardData.save().then((result) => {
         dependencies.forEach(function (d) {
