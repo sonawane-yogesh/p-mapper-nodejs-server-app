@@ -62,9 +62,6 @@ var {
     RoleWiseMenuMaster
 } = require("./role-wise-menu-master");
 
-var {
-    IncidentMaster
-} = require("./incident-master");
 module.exports = {
     JobDependencies,
     AppDependencies,
@@ -86,6 +83,5 @@ module.exports = {
     MaintanaceChangePhase,
     MainMenuMaster,
     SubMenuMaster,
-    RoleWiseMenuMaster,
-    IncidentMaster
+    RoleWiseMenuMaster
 }

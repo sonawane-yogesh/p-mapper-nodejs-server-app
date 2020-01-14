@@ -72,7 +72,8 @@ var getMaintanaceChangePhase = async function (request, response) {
                     $in: arr
                 }
             }
-        }]).exec();
+        }])
+        .exec();
 
     response.send(changePhase);
 };

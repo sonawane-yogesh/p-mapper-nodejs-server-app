@@ -2,8 +2,7 @@ var {
     JobCardMaster,
     UserMaster,
     ApplicationCardMaster,
-    MaintenanceActivity,
-    IncidentMaster
+    MaintenanceActivity
 } = require("../model/index");
 var mongoose = require("mongoose");
 
@@ -75,7 +74,6 @@ module.exports.getRoleBasedApps = async function (request, response) {
             }]
         }
     }]).exec();
-
     response.send(projects);
 };
 
@@ -123,4 +121,4 @@ var getProjectAgainstApplication = async function (appId) {
         ApplicationId: mongoose.Schema.ObjectId(appId)
     });
     return projects;
-}
+};

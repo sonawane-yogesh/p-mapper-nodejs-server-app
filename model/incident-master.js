@@ -15,25 +15,37 @@ var {
 
 var incidentSchema = new Schema({
     IncidentTitle: {
-        type: String
+        type: String,
+        required: true
     },
+<<<<<<< HEAD
+    AssociatedApps: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+=======
     AssociatedApps: [{
         type: mongoose.Types.ObjectId,        
     }],
+>>>>>>> a4a581648abbf5ef11aa6a8a98a3d5db2eb4d37d
     Criticality: {
-        type: String
+        type: String,
+        required: true
     },
     IncidentDetails: {
-        type: String
+        type: String,
+        required: true
     },
     Resources: [{
         type: mongoose.Types.ObjectId
     }],
     Contact: {
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        required: true
     },
     Status: {
-        type: String
+        type: String,
+        required: true
     },
     CreatedOn: {
         type: Date,
@@ -48,19 +60,23 @@ var incidentSchema = new Schema({
         default: null
     },
     IncidentNo: {
-        type: Number
+        type: String
     }
 });
 
-// incidentSchema.path('IncidentNo').set(function (v) {
-//     var random = uniqueRandom(100000, 9999999);
-//     v = random();
-// });
+incidentSchema.methods.generateRandomNo = function (length) {
+    var result = '';
+    var characters = '01234567899876543210';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+};
 
 incidentSchema.pre("save", function (next) {
-
-    var random = uniqueRandom(100000, 9999999);
-    this.IncidentNo = random();
+    var no = this.generateRandomNo(8);
+    this.IncidentNo = `PM-${no}`;
     next();
 });
 
