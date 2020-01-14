@@ -80,38 +80,33 @@ module.exports.getRoleBasedApps = async function (request, response) {
 };
 
 module.exports.getIncident = async function (request, response) {
-    /*
     var id = request.query.id;
-    var incidences = await IncidentMaster.find().select("AssociatedApps");   
+    var incidences = await IncidentMaster.find().select("AssociatedApps");
     var apps = IncidentMaster.aggregate([{
-        "$group": {
-            "_id": {
-                "$arrayElemAt": ["$AssociatedApps", 0]
-            },
-            Apps: {
+        $group: {
+            _id: "$AssociatedApps",
+            AppCounts: {
                 "$sum": 1
             }
         }
-    }]).exec();    
+    }]).exec();
     apps.then(a => {
         response.json(a);
     }).catch(e => {
         response.json(e);
     });
-    */   
+
+    /*
     var finalList = [];
     var applicationCard = await ApplicationCardMaster.find().lean();
     for (let appObject of applicationCard) {
-        var id = appObject._id.toString();
-        console.log(appObject);
+        var id = appObject._id.toString();       
         var incident = await IncidentMaster.find({
             AssociatedApps: mongoose.Types.ObjectId(id)
-        });
-        console.log(incident);        
+        });         
         var projects = await MaintenanceActivity.find({
             ApplicationId: mongoose.Types.ObjectId(id)
-        });
-        console.log(projects);
+        });        
         finalList.push({
             "AppTitle": appObject.AppTitle,
             "Count": incident.length,
@@ -120,6 +115,7 @@ module.exports.getIncident = async function (request, response) {
     };
     var finalResult = finalList.sort((a, b) => b.Count - a.Count).slice(0, 2);
     response.send(finalResult);    
+    */
 }
 
 var getProjectAgainstApplication = async function (appId) {
