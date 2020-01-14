@@ -4,6 +4,8 @@ var {
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+const uniqueRandom = require('unique-random');
+
 var {
     ApplicationCardMaster
 } = require('../model/application-card');
@@ -15,9 +17,9 @@ var incidentSchema = new Schema({
     IncidentTitle: {
         type: String
     },
-    AssociatedApps: [{
+    AssociatedApps: {
         type: mongoose.Types.ObjectId
-    }],
+    },
     Criticality: {
         type: String
     },
@@ -44,7 +46,22 @@ var incidentSchema = new Schema({
     CreatedBy: {
         type: mongoose.Types.ObjectId,
         default: null
+    },
+    IncidentNo: {
+        type: Number
     }
+});
+
+// incidentSchema.path('IncidentNo').set(function (v) {
+//     var random = uniqueRandom(100000, 9999999);
+//     v = random();
+// });
+
+incidentSchema.pre("save", function (next) {
+
+    var random = uniqueRandom(100000, 9999999);
+    this.IncidentNo = random();
+    next();
 });
 
 var appsVirtual = {
@@ -70,22 +87,21 @@ var resourceVirtual = {
 };
 
 var contactVirtual = {
-    path: "UserMaster",
+    path: "ContactMaster",
     value: {
         from: "UserMaster",
         foreignField: "_id",
         localField: "Contact",
-        as: "UserMaster"
+        as: "ContactMaster"
     },
     fields: ["_id", "FirstName", "LastName", "UserName"]
 };
 
 incidentSchema.virtual(resourceVirtual.path, resourceVirtual.value);
 incidentSchema.virtual(appsVirtual.path, appsVirtual.value);
-incidentSchema.virtual(contactVirtual.path, contactVirtual.value);
+incidentSchema.virtual("ContactMaster", contactVirtual.value);
 
-incidentSchema.pre("find", function (next) {
-
+incidentSchema.pre(["find", "findOne"], function (next) {
     var incident = this;
     incident.populate(resourceVirtual.path, resourceVirtual.fields, UserMaster);
     incident.populate(appsVirtual.path, appsVirtual.fields, ApplicationCardMaster);
@@ -93,5 +109,14 @@ incidentSchema.pre("find", function (next) {
     next();
 });
 
+incidentSchema.set("toJSON", {
+    getters: true,
+    virtuals: true
+});
+
+incidentSchema.set("toObject", {
+    getters: true,
+    virtuals: true
+})
 
 exports.IncidentMaster = server.model("IncidentMaster", incidentSchema, "IncidentMaster");

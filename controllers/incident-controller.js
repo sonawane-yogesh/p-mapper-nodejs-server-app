@@ -17,7 +17,23 @@ var getIncidents = async function (request, response) {
     response.send(incidents);
 };
 
+var updateIncident = function (request, response) {
+    var reqBody = request.body;
+    IncidentMaster.findByIdAndUpdate({
+        _id: reqBody.id
+    }, reqBody, {
+        upsert: true,
+        returnNewDocument: true
+    }, function (err, doc) {
+        if (err)
+            response.status(500).send(err);
+        else
+            response.send(doc);
+    });
+};
+
 module.exports = {
     addIncident,
-    getIncidents
+    getIncidents,
+    updateIncident
 };

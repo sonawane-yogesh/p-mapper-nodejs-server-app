@@ -120,7 +120,8 @@ var getRoleMenuById = async function (request, response) {
     var mainMenuId = toObject.MainMenuId.toString();
     mainIds.push(mainMenuId);
   }
-  const distinctMainIds = [...new Set(mainIds.map(x => x))]
+  const distinctMainIds = [...new Set(mainIds.map(x => x))];
+  // Add line here to order menus by MenuOrderNumber
   var mainlist = [];
   for (mainId of distinctMainIds) {
     var subList = [];

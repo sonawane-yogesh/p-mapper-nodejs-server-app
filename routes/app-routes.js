@@ -105,7 +105,8 @@ var roleWiseMenuMaster = [
 
 var incidentRoutes = [
     ["api/incident-controller/add-incident", "incident-controller#addIncident", "post"],
-    ["api/incident-controller/get-incidents", "incident-controller#getIncidents", "get"]
+    ["api/incident-controller/get-incidents", "incident-controller#getIncidents", "get"],
+    ["api/incident-controller/update-incident", 'incident-controller#updateIncident', 'post']
 ]
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes,
