@@ -4,7 +4,7 @@ var {
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const uniqueRandom = require('unique-random');
+// const uniqueRandom = require('unique-random');
 
 var {
     ApplicationCardMaster
@@ -22,7 +22,7 @@ var incidentSchema = new Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
-      Criticality: {
+    Criticality: {
         type: String,
         required: true
     },
@@ -43,7 +43,10 @@ var incidentSchema = new Schema({
     },
     CreatedOn: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: function (v) {
+            return v.toLocaleDateString("en-us");
+        }
     },
     UpdatedOn: {
         type: Date,
@@ -116,6 +119,12 @@ incidentSchema.pre(["find", "findOne"], function (next) {
     incident.populate(resourceVirtual.path, resourceVirtual.fields, UserMaster);
     incident.populate(appsVirtual.path, appsVirtual.fields, ApplicationCardMaster);
     incident.populate(contactVirtual.path, contactVirtual.fields, UserMaster);
+    next();
+});
+
+incidentSchema.pre("aggregate", function (next) {
+    var incident = this;   
+    // incident.lookup(appsVirtual.value); //.unwind(appsVirtual.path);
     next();
 });
 
