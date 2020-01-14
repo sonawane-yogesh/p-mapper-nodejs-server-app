@@ -65,7 +65,6 @@ var {
 var {
     IncidentMaster
 } = require("./incident-master");
-
 module.exports = {
     JobDependencies,
     AppDependencies,

@@ -33,10 +33,7 @@ exports.getAppDependencies = async function (request, response) {
     var jobCardsData = toObject.JobCards;
     for (let j of jobCardsData) {        
         await jobMasterDependecies(j ,applicationCard._id.toString(), diagramData);
-    }
-
-    
-   
+    }     
     response.send(diagramData);
 };
 

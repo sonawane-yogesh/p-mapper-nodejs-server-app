@@ -82,6 +82,7 @@ var dashBoardRoutes = [
     ['api/dashboard-controller/get-apps', "dashboard-controller#getRoleBasedApps", 'get'],
     ['api/dashboard-controller/get-incident', "dashboard-controller#getIncident", 'get'],
     ['api/dashboard-controller/get-app-incident-projects', "dashboard-controller#getAppIncidentProjects", 'get']
+
 ];
 
 var mainMenuMaster = [

@@ -54,7 +54,7 @@ var mainMenuVirtuals = {
         foreignField: "_id",
         as: "MainMenuMaster"
     },
-    fields: ["_id", "MainMenuName", "HasChild", "HtmlText"]
+    fields: ["_id", "MainMenuName", "HasChild", "HtmlText", "MenuOrderNumber"]
 }
 RoleWiseMenuMasterSchema.virtual(subMenuVirtuals.path, subMenuVirtuals.value);
 RoleWiseMenuMasterSchema.virtual(mainMenuVirtuals.path, mainMenuVirtuals.value);
