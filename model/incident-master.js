@@ -18,17 +18,11 @@ var incidentSchema = new Schema({
         type: String,
         required: true
     },
-<<<<<<< HEAD
     AssociatedApps: {
         type: mongoose.Types.ObjectId,
         required: true
     },
-=======
-    AssociatedApps: [{
-        type: mongoose.Types.ObjectId,        
-    }],
->>>>>>> a4a581648abbf5ef11aa6a8a98a3d5db2eb4d37d
-    Criticality: {
+      Criticality: {
         type: String,
         required: true
     },

@@ -70,9 +70,8 @@ var getRoleMenuByRoleId = async function (request, response) {
     };
     mainlist.push(roleMenu);
   }
-
   response.json(mainlist);
-}
+};
 
 
 // This is for getting all subMenuMaster data by MainMenuId
@@ -98,7 +97,9 @@ var getAllSubRoleMenu = async function (mainMenuId, roleId) {
 // This is get MainMenuMaster data by mainMenuId
 var getMainMenu = async function (mainMenuId) {
   var id = mongoose.Types.ObjectId(mainMenuId);
-  var result = await MainMenuMaster.findById(id);
+  var result = await MainMenuMaster.findById(id).sort({
+    MenuOrderNumber: 1
+  });
   return result;
 }
 
@@ -118,10 +119,13 @@ var getRoleMenuById = async function (request, response) {
   for (role of roleData) {
     var toObject = role.toObject();
     var mainMenuId = toObject.MainMenuId.toString();
-    mainIds.push(mainMenuId);
+    mainIds.push({
+      MenuId: mainMenuId,
+      OrderNumber: toObject.MainMenuMaster.MenuOrderNumber
+    });
   }
-  const distinctMainIds = [...new Set(mainIds.map(x => x))];
-  // Add line here to order menus by MenuOrderNumber
+  mainIds = mainIds.sort((a, b) => a.OrderNumber - b.OrderNumber);
+  const distinctMainIds = [...new Set(mainIds.map(x => x.MenuId))];
   var mainlist = [];
   for (mainId of distinctMainIds) {
     var subList = [];
