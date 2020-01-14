@@ -16,7 +16,7 @@ var incidentSchema = new Schema({
         type: String
     },
     AssociatedApps: [{
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,        
     }],
     Criticality: {
         type: String
@@ -92,6 +92,13 @@ incidentSchema.pre("find", function (next) {
     incident.populate(contactVirtual.path, contactVirtual.fields, UserMaster);
     next();
 });
+incidentSchema.set('toJSON', {
+    virtuals: true
+})
 
+incidentSchema.set('toObject', {
+    virtuals: true,
+    getters: true
+})
 
 exports.IncidentMaster = server.model("IncidentMaster", incidentSchema, "IncidentMaster");
