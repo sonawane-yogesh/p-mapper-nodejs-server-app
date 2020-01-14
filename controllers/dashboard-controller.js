@@ -2,7 +2,8 @@ var {
     JobCardMaster,
     UserMaster,
     ApplicationCardMaster,
-    MaintenanceActivity
+    MaintenanceActivity,
+    IncidentMaster
 } = require("../model/index");
 var mongoose = require("mongoose");
 
@@ -78,44 +79,119 @@ module.exports.getRoleBasedApps = async function (request, response) {
 };
 
 module.exports.getIncident = async function (request, response) {
-    var id = request.query.id;
-    var incidences = await IncidentMaster.find().select("AssociatedApps");
     var apps = IncidentMaster.aggregate([{
         $group: {
-            _id: "$AssociatedApps",
+            _id: {
+                AssociatedApps: "$AssociatedApps"
+            },
             AppCounts: {
-                "$sum": 1
+                $sum: 1
+            },
+            CreatedOn: {
+                "$first": "$CreatedOn",
             }
         }
+    }, {
+        $lookup: {
+            from: "ApplicationCardMaster",
+            localField: "_id.AssociatedApps",
+            foreignField: "_id",
+            as: "ApplicationCardMaster"
+        }
+    }, {
+        $sort: {
+            AppCounts: -1 // -1 means Descending and 1 means Ascending           
+        }
+    }, {
+        $limit: 6
+    }, {
+        $unwind: "$ApplicationCardMaster"
     }]).exec();
-    apps.then(a => {
-        response.json(a);
+    apps.then(res => {
+        response.json(res);
     }).catch(e => {
         response.json(e);
     });
+}
 
-    /*
+module.exports.getAppIncidentProjects = async function (reqest, response) {
+
     var finalList = [];
+
     var applicationCard = await ApplicationCardMaster.find().lean();
     for (let appObject of applicationCard) {
-        var id = appObject._id.toString();       
+        var id = appObject._id.toString();
         var incident = await IncidentMaster.find({
             AssociatedApps: mongoose.Types.ObjectId(id)
-        });         
+        });
+        var dates = [];
+        var dateField = incident.map(a => a.CreatedOn);
+        dates.push.apply(dates, dateField);
+        console.log(dates);
         var projects = await MaintenanceActivity.find({
             ApplicationId: mongoose.Types.ObjectId(id)
-        });        
+        });
         finalList.push({
             "AppTitle": appObject.AppTitle,
             "Count": incident.length,
-            "Projects": projects.length
-        });        
+            "Projects": projects.length,
+            "Dates": dates
+        });
     };
-    var finalResult = finalList.sort((a, b) => b.Count - a.Count).slice(0, 2);
-    response.send(finalResult);    
-    */
-}
+    var finalResult = finalList.sort((a, b) => b.Count - a.Count).slice(0, 6);
+    response.send(finalResult);
 
+    /*
+    var apps = ApplicationCardMaster.aggregate([{
+            $lookup: {
+                from: "MaintenanceActivity",
+                localField: "_id",
+                foreignField: "ApplicationId",
+                as: "MaintenanceActivity"
+            }
+        },
+        {
+            $lookup: {
+                from: "IncidentMaster",
+                localField: "_id",
+                foreignField: "AssociatedApps",
+                as: "IncidentMaster"
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    id: "$_id",
+                    AppTitle: "$AppTitle"
+                },   
+                AppCounts: {
+                    $addToSet: "$IncidentMaster.AssociatedApps"
+                },
+                projectCnt: {
+                    $addToSet: "$MaintenanceActivity.ApplicationId"
+                }
+            
+            }
+        },
+        {
+            $unwind: "$AppCounts"
+        }, {
+            $sort: {
+                AppCounts: -1 // -1 means Descending and 1 means Ascending
+            }
+        },
+        {
+            $unwind: "$projectCnt"
+        }
+
+    ]).exec();
+    apps.then((res) => {
+        response.json(res);
+    }).catch((err) => {
+        response.send(JSON.stringify(err));
+    })
+    */
+};
 var getProjectAgainstApplication = async function (appId) {
     var projects = await MaintenanceActivity.find({
         ApplicationId: mongoose.Schema.ObjectId(appId)

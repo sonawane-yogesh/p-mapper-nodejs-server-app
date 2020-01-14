@@ -80,6 +80,8 @@ var dashBoardRoutes = [
     ["api/dashboard-controller/dashBoard-Counts", "dashboard-controller#dashBoardCounts", 'get'],
     ["api/dashboard-controller/get-Distinct-Application", "dashboard-controller#getDistinctApplication", 'get'],
     ['api/dashboard-controller/get-apps', "dashboard-controller#getRoleBasedApps", 'get'],
+    ['api/dashboard-controller/get-incident', "dashboard-controller#getIncident", 'get'],
+    ['api/dashboard-controller/get-app-incident-projects', "dashboard-controller#getAppIncidentProjects", 'get']
 ];
 
 var mainMenuMaster = [
