@@ -4,7 +4,7 @@ var {
 var server = dbServer();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const uniqueRandom = require('unique-random');
+// const uniqueRandom = require('unique-random');
 
 var {
     ApplicationCardMaster
@@ -18,16 +18,10 @@ var incidentSchema = new Schema({
         type: String,
         required: true
     },
-<<<<<<< HEAD
     AssociatedApps: {
         type: mongoose.Types.ObjectId,
         required: true
     },
-=======
-    AssociatedApps: [{
-        type: mongoose.Types.ObjectId,        
-    }],
->>>>>>> a4a581648abbf5ef11aa6a8a98a3d5db2eb4d37d
     Criticality: {
         type: String,
         required: true
