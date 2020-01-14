@@ -141,7 +141,7 @@ module.exports.getAppIncidentProjects = async function (reqest, response) {
     var finalResult = finalList.sort((a, b) => b.Count - a.Count).slice(0, 6);
     response.send(finalResult);
 
-    /*
+    /* This is for project with incident applications
     var apps = ApplicationCardMaster.aggregate([{
             $lookup: {
                 from: "MaintenanceActivity",
