@@ -59,25 +59,45 @@ var getStatusReport = async function (request, response) {
     response.send(result);
 };
 
-
 var testIncidentResult = async function (request, response) {
+    var loggedId = request.query.id;
     var incidents = await IncidentMaster.find({}).lean();
     var temp = [];
     for (let val of incidents) {
+        var resources = [];
+        val.Resources.forEach(r => {
+            resources.push(r);
+        });
+        var incRes = await UserMaster.find({
+            _id: {
+                $in: resources
+            }
+        }).lean();
+
+        var allReportTo = [];
+        incRes.forEach(function (re) {
+            allReportTo.push(re._id.toString());
+            if (!re.ReportToId) return;
+            allReportTo.push(re.ReportToId.toString());
+        });
+        var isPresent = allReportTo.includes(loggedId);
         var result = await IncidentStatuses.findOne({ IncidentId: mongoose.Types.ObjectId(val._id) },
             ['CurrentStatus', 'StatusNotes', "UpdatedBy"], { sort: { "UpdatedOn": -1 } });
-        if (result === null) {
+
+        if (!result) {
             var user = await UserMaster.findOne({ _id: val.CreatedBy });
             val.CreatedByUser = `${user.FirstName} ${user.LastName}`;
+            val.ShowReportBtn = isPresent;
             temp.push(val);
         } else {
-            //val.Status = result.CurrentStatus;
             var user = await UserMaster.findOne({ _id: result.UpdatedBy });
             val.UpdatedByUser = `${user.FirstName} ${user.LastName}`;
             val.CurrentStatus = result.CurrentStatus;
+            val.ShowReportBtn = isPresent;
             temp.push(val);
         }
     };
+
     response.send(temp);
 };
 

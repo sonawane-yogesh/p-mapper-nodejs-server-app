@@ -31,7 +31,8 @@ var incidentSchema = new Schema({
         required: true
     },
     Resources: [{
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        ref: "UserMaster"
     }],
     Contact: {
         type: mongoose.Types.ObjectId,
