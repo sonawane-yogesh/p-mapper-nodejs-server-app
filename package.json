@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node p-mapper-app-server.js",
-    "dev-start": "nodemon --inspect-brk --inspect p-mapper-app-server.js",
+    "dev-start": "nodemon --inspect-brk --inspect=127.0.0.1:9221 p-mapper-app-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

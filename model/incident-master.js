@@ -50,7 +50,11 @@ var incidentSchema = new Schema({
     },
     UpdatedOn: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: function (v) {
+
+            return v.toLocaleDateString("en-us");
+        }
     },
     CreatedBy: {
         type: mongoose.Types.ObjectId,
@@ -123,7 +127,7 @@ incidentSchema.pre(["find", "findOne"], function (next) {
 });
 
 incidentSchema.pre("aggregate", function (next) {
-    var incident = this;   
+    var incident = this;
     // incident.lookup(appsVirtual.value); //.unwind(appsVirtual.path);
     next();
 });

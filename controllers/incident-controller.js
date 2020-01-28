@@ -1,6 +1,9 @@
 const {
     IncidentMaster
 } = require('../model/incident-master');
+const { IncidentStatuses } = require('../model/incident-statuses');
+const { UserMaster } = require('../model/user-master');
+const mongoose = require('mongoose');
 
 var addIncident = function (request, response) {
     var reqBody = request.body;
@@ -13,7 +16,8 @@ var addIncident = function (request, response) {
 };
 
 var getIncidents = async function (request, response) {
-    var incidents = await IncidentMaster.find();
+    var incidents = await IncidentMaster.find({}, null, { sort: { CreatedOn: -1 } }).lean();
+    // var incidents = await IncidentMaster.find({});
     response.send(incidents);
 };
 
@@ -32,8 +36,56 @@ var updateIncident = function (request, response) {
     });
 };
 
+var updateStatus = function (request, response) {
+    var reqBody = request.body;
+    IncidentStatuses.create(reqBody).then((res) => {
+        IncidentMaster.updateOne({ _id: reqBody.id }, {
+            $currentDate: {
+                'UpdatedOn': { $type: "date" }
+            }
+        }, function (err, result) {
+            if (err)
+                response.status(500).send(err);
+            else
+                response.send(result);
+        });
+    }).catch((err) => {
+        response.status(500).send(err);
+    });
+};
+
+var getStatusReport = async function (request, response) {
+    var result = await IncidentStatuses.find();
+    response.send(result);
+};
+
+
+var testIncidentResult = async function (request, response) {
+    var incidents = await IncidentMaster.find({}).lean();
+    var temp = [];
+    for (let val of incidents) {
+        var result = await IncidentStatuses.findOne({ IncidentId: mongoose.Types.ObjectId(val._id) },
+            ['CurrentStatus', 'StatusNotes', "UpdatedBy"], { sort: { "UpdatedOn": -1 } });
+        if (result === null) {
+            var user = await UserMaster.findOne({ _id: val.CreatedBy });
+            val.CreatedByUser = `${user.FirstName} ${user.LastName}`;
+            temp.push(val);
+        } else {
+            //val.Status = result.CurrentStatus;
+            var user = await UserMaster.findOne({ _id: result.UpdatedBy });
+            val.UpdatedByUser = `${user.FirstName} ${user.LastName}`;
+            val.CurrentStatus = result.CurrentStatus;
+            temp.push(val);
+        }
+    };
+    response.send(temp);
+};
+
 module.exports = {
     addIncident,
     getIncidents,
-    updateIncident
+    updateIncident,
+    updateStatus,
+    getStatusReport,
+    testIncidentResult
 };

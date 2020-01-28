@@ -65,6 +65,7 @@ var {
 var {
     IncidentMaster
 } = require("./incident-master");
+var { IncidentStatuses } = require("./incident-statuses");
 module.exports = {
     JobDependencies,
     AppDependencies,
@@ -87,5 +88,6 @@ module.exports = {
     MainMenuMaster,
     SubMenuMaster,
     RoleWiseMenuMaster,
-    IncidentMaster
+    IncidentMaster,
+    IncidentStatuses
 }

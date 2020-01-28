@@ -25,14 +25,14 @@ var {
 setInterval(async function () {
     await fileProcessing();
 }, 120000);
-
+/*
 var options = {
     key: fs.readFileSync('./certificates/device.key'),
     cert: fs.readFileSync('./certificates/device.crt')
 };
 var server = https.createServer(options, app);
-
-server.listen(port, function () {
+*/
+app.listen(port, function () {
     var serverDetails = this.address();
     console.log(serverDetails);
     console.log(`p-mapper server is running and up at: ${JSON.stringify(serverDetails)}`);

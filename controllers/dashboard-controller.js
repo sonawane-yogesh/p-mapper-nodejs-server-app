@@ -127,7 +127,7 @@ module.exports.getAppIncidentProjects = async function (reqest, response) {
         var dates = [];
         var dateField = incident.map(a => a.CreatedOn);
         dates.push.apply(dates, dateField);
-        console.log(dates);
+        //  console.log(dates);
         var projects = await MaintenanceActivity.find({
             ApplicationId: mongoose.Types.ObjectId(id)
         });
