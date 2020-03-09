@@ -97,7 +97,7 @@ var getJobCards = async function (request, response) {
 
 var deleteCards = function (request, response) {
     var reqBody = request.body;
-    console.log(reqBody);
+    // console.log(reqBody);
     reqBody.forEach(async function (index, value) {
         await JobCardMaster.findByIdAndDelete({
             _id: index

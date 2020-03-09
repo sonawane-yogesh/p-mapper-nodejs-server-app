@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
 var addMainMenu = function (request, response) {
   var body = request.body;
   MainMenuMaster.create(body).then((result) => {
-    console.log(result);
+    // console.log(result);
     response.status(200).send(result);
   }).catch((err) => {
     console.log(err);
