@@ -86,12 +86,12 @@ var testIncidentResult = async function (request, response) {
 
         if (!result) {
             var user = await UserMaster.findOne({ _id: val.CreatedBy });
-            val.CreatedByUser = `${user.FirstName} ${user.LastName}`;
+            val.CreatedByUser = `${user.FullName}`;
             val.ShowReportBtn = isPresent;
             temp.push(val);
         } else {
             var user = await UserMaster.findOne({ _id: result.UpdatedBy });
-            val.UpdatedByUser = `${user.FirstName} ${user.LastName}`;
+            val.UpdatedByUser = `${user.FullName} `;
             val.CurrentStatus = result.CurrentStatus;
             val.ShowReportBtn = isPresent;
             temp.push(val);

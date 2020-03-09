@@ -129,7 +129,9 @@ incidentSchema.pre(["find", "findOne"], function (next) {
 
 incidentSchema.pre("aggregate", function (next) {
     var incident = this;
-    // incident.lookup(appsVirtual.value); //.unwind(appsVirtual.path);
+    incident.lookup(appsVirtual.value).unwind(appsVirtual.path);
+    incident.lookup(contactVirtual.value).unwind(contactVirtual.path);
+    incident.lookup(resourceVirtual.value);
     next();
 });
 

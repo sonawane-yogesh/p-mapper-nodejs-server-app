@@ -1,7 +1,7 @@
 console.clear();
 var express = require('express');
 var app = express();
-var expressPath = require('0');
+var expressPath = require('express-path');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var appRoutes = require('./routes/app-routes');
