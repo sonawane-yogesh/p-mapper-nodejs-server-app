@@ -5,16 +5,14 @@ var dirPath = __dirname;
 var pdf = require('pdf-parse');
 var xlsx = require('node-xlsx');
 var csv = require('node-csv').createParser('\t', '"', '\\');
-const {
-    extractText
-} = require('doxtract');
+// const {extractText} = require('doxtract');
 //var csv = require('node-csv').createParser();
-var textract = require('textract');
+//var textract = require('textract');
 var testPdfReader = function (request, response) {
     var filePath = path.join(dirPath, "../UploadedScripts/sample.pdf");
 
     new pdfreader.PdfReader().parseFileItems(filePath, function (err, item) {
-        if (item.text) console.log(item.text);
+        // if (item.text) console.log(item.text);
     });
     /*
         var list = [];
@@ -45,7 +43,7 @@ var extractPdf = function (request, response) {
     var dataBuffer = fs.readFileSync(filePath);
     pdf(dataBuffer).then((result) => {
         response.send(result);
-        console.log(result);
+        // console.log(result);
     }).catch((error) => {
         response.status(500).send(error);
         console.log(error);
@@ -78,7 +76,7 @@ var readDocx = function (request, response) {
     const bat = spawn('cmd.exe', ['/c', 'antiword -m UTF-8.txt ' + filePath]);
 
     exec("c:\\antiword\\antiword.exe -m UTF-8.txt " + filePath, function (e, r) {
-        console.log(e, r);
+        // console.log(e, r);
     });
 
     /*

@@ -79,10 +79,43 @@ var technicalSkillRoutes = [
 var dashBoardRoutes = [
     ["api/dashboard-controller/dashBoard-Counts", "dashboard-controller#dashBoardCounts", 'get'],
     ["api/dashboard-controller/get-Distinct-Application", "dashboard-controller#getDistinctApplication", 'get'],
-    ['api/dashboard-controller/get-apps', "dashboard-controller#getRoleBasedApps", 'get']
+    ['api/dashboard-controller/get-apps', "dashboard-controller#getRoleBasedApps", 'get'],
+    ['api/dashboard-controller/get-incident', "dashboard-controller#getIncident", 'get'],
+    ['api/dashboard-controller/get-app-incident-projects', "dashboard-controller#getAppIncidentProjects", 'get']
+
+];
+
+var mainMenuMaster = [
+    ["api/main-menu-master-controller/add-main-menu", "main-menu-master-controller#addMainMenu", 'post'],
+    ["api/main-menu-master-controller/get-all-main-menu", "main-menu-master-controller#getAllMainMenu", 'get'],
+    ["api/main-menu-master-controller/main-menu", "main-menu-master-controller#mainMenuMaster", 'get'],
+    ["api/main-menu-master-controller/get-menu-update", "main-menu-master-controller#getAllMainMenuUpdate", 'get']
+];
+
+var subMenuMaster = [
+    ["api/sub-menu-master-controller/add-sub-menu", "sub-menu-master-controller#addSubMenu", 'post'],
+    ["api/sub-menu-master-controller/get-all-sub-menu", "sub-menu-master-controller#getAllSubMenu", 'get']
+];
+
+var roleWiseMenuMaster = [
+    ["api/role-wise-menu-master-controller/add-role-menu", "role-wise-menu-master-controller#addRoleMenu", 'post'],
+    ["api/role-wise-menu-master-controller/get-all-role-menu", "role-wise-menu-master-controller#getAllRoleMenu", 'get'],
+    ["api/role-wise-menu-master-controller/get-role-menu", "role-wise-menu-master-controller#getRoleMenuByRoleId", 'get'],
+    ["api/role-wise-menu-master-controller/get-sub-Menu", "role-wise-menu-master-controller#getAllSubRoleMenu", 'get'],
+    ["api/role-wise-menu-master-controller/get-role-menu-by-id", "role-wise-menu-master-controller#getRoleMenuById", 'get'],
+    ["api/role-wise-menu-master-controller/update-rolemenu", "role-wise-menu-master-controller#updateRoleMenu", 'post']
+];
+
+var incidentRoutes = [
+    ["api/incident-controller/add-incident", "incident-controller#addIncident", "post"],
+    ["api/incident-controller/get-incidents", "incident-controller#getIncidents", "get"],
+    ["api/incident-controller/update-incident", 'incident-controller#updateIncident', "post"],
+    ["api/incident-controller/update-status", "incident-controller#updateStatus", "post"],
+    ["api/incident-controller/get-statuses", "incident-controller#getStatusReport", "get"],
+    ["api/incident-controller/test-incident-results","incident-controller#testIncidentResult","get"]
 ]
 
 var appRoutes = Array.prototype.concat(demoRoutes, userRoutes, jobRoutes, applicationRoutes, fileuploadRoutes,
     systemMemberRoutes, testRoutes, memberReviewRoutes, roleRoutes, contactTypeRoutes,
-    technicalSkillRoutes, dashBoardRoutes);
+    technicalSkillRoutes, dashBoardRoutes, mainMenuMaster, subMenuMaster, roleWiseMenuMaster, incidentRoutes);
 module.exports = appRoutes;

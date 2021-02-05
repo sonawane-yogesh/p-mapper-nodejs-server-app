@@ -7,10 +7,10 @@ var mongoose = require('mongoose');
 var getAllDepedencies = async function (request, response) {
     var id = request.query.id;
     var cardType = request.query.type;
-    console.log(cardType);
+    // console.log(cardType);
     var diagramData = {
         Nodes: [],
-        Links: []     
+        Links: []
     };
     if (cardType === 'job') {
         await getJobList(id, diagramData);
@@ -36,7 +36,7 @@ var getJobList = async function (id, diagramData) {
     }];
 
     var results = await JobCardMaster.aggregate(aggregate).exec();
-    console.log(results);
+    // console.log(results);
     for (const dependency of results) {
         var nodeCount = 0;
         var parentNode = prepareNode(++nodeCount, dependency.JobTitle, "#90ee90", "RoundRect");
@@ -118,7 +118,7 @@ var getAppList = async function (id, diagramData) {
     }];
 
     var results = await ApplicationCardMaster.aggregate(aggregate).exec();
-    console.log(results);
+    // console.log(results);
     for (const dependency of results) {
         var nodeCount = 0;
         var parentNode = prepareNode(nodeCount, dependency.AppTitle, "#90ee90", "RoundRect");

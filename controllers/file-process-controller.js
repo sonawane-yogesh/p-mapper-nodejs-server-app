@@ -70,7 +70,7 @@ var fileProcessing = async function () {
                         "AssociatedFiles.$.IsTextExtracted": true
                     }
                 });
-                console.log(assFile);
+                // console.log(assFile);
             }).catch((err) => {
                 console.log(err);
             });
@@ -135,7 +135,7 @@ var jobAndAppFileProcessing = async function (filePath) {
             }
             var jobCardData = new JobCardMaster(jobObj);
             await jobCardData.save();
-            console.log(jobObj);
+            // console.log(jobObj);
         }
     }
 
@@ -162,8 +162,7 @@ var jobAndAppFileProcessing = async function (filePath) {
                 DependencyTitle: j.JobTitle,
                 JobId: baseJob._id
             });
-            var yedi = await jobDependencies.save();
-            console.log(yedi);
+            await jobDependencies.save();
         }
     }
 
@@ -184,7 +183,7 @@ var jobAndAppFileProcessing = async function (filePath) {
         }
         var appCardData = new ApplicationCardMaster(appObj);
         await appCardData.save();
-        console.log(appObj);
+        // console.log(appObj);
     }
 
     //for inserting Appdependencies
@@ -210,8 +209,7 @@ var jobAndAppFileProcessing = async function (filePath) {
                 DependencyTitle: dj.AppTitle,
                 AppId: baseApp._id
             });
-            var yedi = await appDependencies.save();
-            console.log(yedi);
+            await appDependencies.save();
         }
     }
 };

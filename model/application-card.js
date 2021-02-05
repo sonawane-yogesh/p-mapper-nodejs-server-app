@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var {
     UserMaster,
-    UserMasterSchema
+    UserMasterSchema, JobCardMaster
 } = require('../model/index');
 
 // var emergencyContactSchema = new Schema({
@@ -128,7 +128,11 @@ var appCardSchema = new Schema({
     UpdatedOn: {
         type: Date,
         default: Date.now
-    }
+    },   
+    JobCards: [{
+        type: mongoose.Types.ObjectId,
+        ref: JobCardMaster
+    }],
 });
 
 var userMasterVirtuals = {
@@ -141,12 +145,24 @@ var userMasterVirtuals = {
     },
     fields: ["_id", "FirstName", "LastName", "ContactTypeId"]
 };
+var jobCardVirtuals = {
+    path: "JobCardMaster",
+    value: {
+        from: "JobCardMaster",
+        foreignField: "_id",
+        localField: "JobCards",
+        as: "JobCardMaster"
+    },
+    fields: ["_id", "JobTitle"]
+};
 
 appCardSchema.virtual(userMasterVirtuals.path, userMasterVirtuals.value);
+appCardSchema.virtual(jobCardVirtuals.path, jobCardVirtuals.value);
 
 const findHook = function (next) {
     var appCards = this;
     appCards.populate(userMasterVirtuals.path, userMasterVirtuals.fields);
+    appCards.populate(jobCardVirtuals.path, jobCardVirtuals.fields);
     // appCards.populate(userMasterVirtuals.path, userMasterVirtuals.fields, UserMaster);
     next();
 };
@@ -159,6 +175,12 @@ appCardSchema.pre("aggregate", function (next) {
         localField: '_id',
         foreignField: 'AppId',
         as: 'Dependencies'
+    });
+    this.lookup({
+        from: 'JobCardMaster',
+        localField: 'JobCards',
+        foreignField: '_id',
+        as: 'JobCardMaster'
     });
     this.lookup({
         from: 'UserMaster',

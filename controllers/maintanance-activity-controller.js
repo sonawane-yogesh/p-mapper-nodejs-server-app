@@ -51,7 +51,7 @@ var updateActivity = function (request, response) {
             response.status(500).send('Error While Updating Card')
         } else {
             MaintanaceChangePhase.create(mainChangePhase).then((d) => {
-                console.log(d);
+                // console.log(d);
             }).catch((err) => {
                 console.log(err);
             });
@@ -72,8 +72,7 @@ var getMaintanaceChangePhase = async function (request, response) {
                     $in: arr
                 }
             }
-        }])
-        .exec();
+        }]).exec();
 
     response.send(changePhase);
 };

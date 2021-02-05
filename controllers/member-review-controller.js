@@ -60,7 +60,7 @@ var deleteSkillById = function (request, response) {
         else
             response.send(res);
     });
-    console.log('requested id is ', id);
+    // console.log('requested id is ', id);
 };
 module.exports = {
     addMemberReview,
