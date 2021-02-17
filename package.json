@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongoose-autopopulate": "^0.10.1",
+    "@types/nodemon": "^1.19.0",
+    "@types/unique-random": "^2.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
